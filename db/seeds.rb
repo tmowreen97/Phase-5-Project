@@ -10,14 +10,14 @@
 # categories = Category.create([{name:"Physical", description:"Physical self-care is considered the baseline/foundation to all other kinds of self-care, because a lack in this area can affect all the other self-care categories. Physical self-care is about taking care of your physical body. If your body feels ill often, you're not in a position where you can do good for others or yourself. This category refers to all the things you can do to help take care of your body and boost your energy levels."}, {name:"Mental", description:"Mental self-care involves your psychological and cognitive thinking as well as your mind's ability to understand and process information and experiences. Mental self-care practices help to stimulate the mind and improve brain functionality while helping you develop a growth mindset. A growth mindset is when people see setbacks and failures as opportunities for improvement. A proper and healthy mindset helps us process information more sufficiently and in a non-distorted manner."}, {name:"Emotional", description: "Emotional self-care seeks to provide you with healthy coping mechanisms that can help you sit and fully process any heavy and uncomfortable emotions. Practicing this will eventually help you acknowledge and process your feelings successfully. By managing your emotions, you can navigate through relationships better and ultimately become a better communicator when it comes to expressing your feelings."}, {name: "Environmental", description:"Environmental self-care is all about being mindful of your surroundings and how it can affect your productivity and headspace. In order to thrive you need to be in the right environment whether that means inside a busy coffee shop, quiet home office or any other place where you enjoy spending your time. Your environment should always motivate you rather than distract you or bring you down."}, {name: "Financial", description:"Financial self-care is about cultivating a healthy relationship with money. This is essential for our mental health as it helps eliminate stress and anxiety from our lives. Whether people like to admit it or not, money is a big factor in our lives everyday. This is all about finding ways to not only achieve your monetary goals, but to also track your income and expenditures so you can save more and stress less. Financial self-care can improve your positive mindset around money, helping you feel more open to talking about it and less negative towards people who have lots of it!"}, {name:"Social", description:"Self-care isn't all about spending time by yourself. Social self-care is about your ability to build and maintain healthy interpersonal relationships with others. This involves doing activities that help nurture positive and fun relationships with our friends and family. Social connections help us to feel loved and less alone, but are also essential in developing and improving our communication skills."}, {name:"Professional", description:"Professional self-care is all about forming a good work-life balance and boundaries. This promotes using habits, processes, systems and communities to make your work life sustainable. Ultimately, practicing professional self-care will help you be more productive in your career, and feel more fulfilled at work."}, {name:"Spiritual", description:"While other self-care categories are focused on nurturing your mind and body, spiritual self-care aims to nurture your soul. Spiritual self-care practices help you tap into your inner being so you can find a deeper purpose and more meaning in your life. This helps you silence the outside noise so you can find internal calm and peace."}])
 
 #LIST OF CATEGORIES
-physical = Category.first
-mental = Category.second
-emotional = Category.third
-environmental = Category.fourth
-financial = Category.fifth
-social = Category.find(6)
-professional = Category.find(7)
-spiritual = Category.find(8)
+# physical = Category.first
+# mental = Category.second
+# emotional = Category.third
+# environmental = Category.fourth
+# financial = Category.fifth
+# social = Category.find(6)
+# professional = Category.find(7)
+# spiritual = Category.find(8)
 
 # physical.activities
 
