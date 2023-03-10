@@ -25,7 +25,7 @@ function App() {
       <Routes>
         <Route element={<Login setUser={setUser}/>} path="/login"/>
         <Route element={<SignUp setUser={setUser}/>} path="/signup"/>
-        <Route element={<Profile user={user} setUser={setUser}/>} path="/me"/>
+        <Route element={<Profile user={user} setUser={setUser}/>} path="/profile"/>
         <Route element={<Home user={user}/>} exact path="/"/>
       </Routes>
     </div>

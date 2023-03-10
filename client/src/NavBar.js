@@ -19,7 +19,7 @@ function Navigation({setUser}) {
       }
     })
   }
-  
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -28,7 +28,7 @@ function Navigation({setUser}) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/me">Profile</Nav.Link>
+            <Nav.Link href="/profile">Profile</Nav.Link>
             <Nav.Link href="/categories">Categories</Nav.Link>
             <Nav.Link href="/add-experience">Add Experience</Nav.Link>
           </Nav>

@@ -30,7 +30,7 @@ function SignUp(props){
             password_confirmation: "",
             bio: ""
           })
-          navigate("/me")
+          navigate("/profile")
         })
       } else {
         r.json().then((err)=> {
