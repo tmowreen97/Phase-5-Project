@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 function Profile({user, setUser}){
   console.log(user)
 
-  return(
+ return(
     <div>
-      <h1>hi</h1>
+      <h1>Welcome back {user.username}!</h1>
     </div>
   )
 }

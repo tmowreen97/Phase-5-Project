@@ -6,10 +6,11 @@ import Profile from './Profile';
 import Navigation from './NavBar';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { redirect} from 'react-router-dom';
+import Categories from './Categories';
 
 function App() {
 
-  const [user, setUser]= useState(null)
+  const [user, setUser]= useState([])
 
   useEffect(()=> {
     fetch("/me").then(r => {
@@ -18,6 +19,8 @@ function App() {
       }
     })
   }, [])
+
+
   console.log('user', user)
   return (
     <div className="App">
@@ -26,6 +29,7 @@ function App() {
         <Route element={<Login setUser={setUser}/>} path="/login"/>
         <Route element={<SignUp setUser={setUser}/>} path="/signup"/>
         <Route element={<Profile user={user} setUser={setUser}/>} path="/profile"/>
+        <Route element={<Categories/>} path="/categories"/>
         <Route element={<Home user={user}/>} exact path="/"/>
       </Routes>
     </div>

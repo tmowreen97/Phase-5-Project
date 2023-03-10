@@ -27,7 +27,7 @@ function Login(props){
             username: "",
             password: ""
           })
-          navigate("/me")
+          navigate("/profile")
         })
       } else {
         debugger
