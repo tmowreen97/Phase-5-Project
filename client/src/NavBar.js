@@ -3,8 +3,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Navigation({setUser}) {
+
+  const loggedIn = useSelector(state => state)
+  const dispatch = useDispatch()
 
   const navigate = useNavigate()
   function handleLogout(e){
@@ -14,7 +18,8 @@ function Navigation({setUser}) {
     })
     .then((r)=>{
       if(r.ok){
-        setUser(null);
+        setUser(null)
+        dispatch({type:'login'})
         navigate("/")
       }
     })

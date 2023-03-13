@@ -7,15 +7,48 @@ import Navigation from './NavBar';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { redirect} from 'react-router-dom';
 import Categories from './Categories';
+import {createStore} from 'redux';
+import { Provider } from 'react-redux';
 
 function App() {
+  const initialState= {
+    loggedIn: false,
+    userRedux : null
+  }
 
-  const [user, setUser]= useState([])
+  function reducer(state = initialState, action){
+    // debugger
+    if (action.type === 'login'){
+      return {
+        ...state,
+        loggedIn : !(state.loggedIn)
+      }
+    }
+    return state
+  }
+
+  const store = createStore(
+    reducer, 
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+
+  console.log(store.getState())
+  store.subscribe(function(){
+    // debugger
+    const state = store.getState()
+    console.log(state)
+  })
+
+
+  const [user, setUser]= useState(null)
 
   useEffect(()=> {
     fetch("/me").then(r => {
       if (r.ok){
-        r.json().then((user)=> setUser(user))
+        r.json().then((user)=> {
+          setUser(user)
+          store.dispatch({type:'login'})
+        })
       }
     })
   }, [])
@@ -23,16 +56,19 @@ function App() {
 
   console.log('user', user)
   return (
-    <div className="App">
+    <Provider store={store}>
+      <div className="App">
       {user && <Navigation setUser={setUser}/>}
       <Routes>
         <Route element={<Login setUser={setUser}/>} path="/login"/>
         <Route element={<SignUp setUser={setUser}/>} path="/signup"/>
-        <Route element={<Profile user={user} setUser={setUser}/>} path="/profile"/>
+        {user && <Route element={<Profile user={user} setUser={setUser}/>} path="/profile"/>}
         <Route element={<Categories/>} path="/categories"/>
         <Route element={<Home user={user}/>} exact path="/"/>
       </Routes>
-    </div>
+      </div>
+    </Provider>
+   
   );
 }
 

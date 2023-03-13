@@ -20,7 +20,7 @@ function Login(props){
     })
     .then((r)=> {
       if (r.ok) {
-        debugger
+        // debugger
         r.json().then((user)=> {
           props.setUser(user)
           setUserHash({
@@ -30,7 +30,7 @@ function Login(props){
           navigate("/profile")
         })
       } else {
-        debugger
+        // debugger
         r.json().then((err)=> {
           setErrors(err.error)
           setUserHash({
