@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 function Categories(){
   const [categories, setCategories]= useState([])
@@ -9,14 +11,23 @@ function Categories(){
   categories.map((category)=> {
     console.log(category.name)
   })
+
   return(
     categories.map((category)=> {
       return (
         <div>
-          <img src="https://cdn-icons-png.flaticon.com/512/1013/1013370.png"/>
-          <h1>{category.name}</h1>
+            <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src={category.img}/>
+            <Card.Body>
+              <Card.Title>{category.name}</Card.Title>
+              {/* <Card.Text>
+                Some quick example text to build on the card title and make up the
+                bulk of the card's content.
+              </Card.Text> */}
+              <Button variant="primary">Go somewhere</Button>
+            </Card.Body>
+          </Card>
         </div>
-        
       )
     })
   )

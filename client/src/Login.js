@@ -1,7 +1,10 @@
 import react, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 function Login(props){
+  const loggedIn = useSelector(state => state.loggedIn)
+  const dispatch = useDispatch()
   const navigate= useNavigate()
   const [userHash, setUserHash] = useState({
     username: "",

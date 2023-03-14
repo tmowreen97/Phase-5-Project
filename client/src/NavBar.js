@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function Navigation({setUser}) {
 
-  const loggedIn = useSelector(state => state)
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
@@ -19,7 +18,7 @@ function Navigation({setUser}) {
     .then((r)=>{
       if(r.ok){
         setUser(null)
-        dispatch({type:'login'})
+        dispatch({type:'LOGOUT'})
         navigate("/")
       }
     })

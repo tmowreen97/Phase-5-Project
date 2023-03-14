@@ -8,27 +8,12 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { redirect} from 'react-router-dom';
 import Categories from './Categories';
 import {createStore} from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
+import allReducers from './reducers';
 
 function App() {
-  const initialState= {
-    loggedIn: false,
-    userRedux : null
-  }
-
-  function reducer(state = initialState, action){
-    // debugger
-    if (action.type === 'login'){
-      return {
-        ...state,
-        loggedIn : !(state.loggedIn)
-      }
-    }
-    return state
-  }
-
   const store = createStore(
-    reducer, 
+    allReducers, 
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 
@@ -47,7 +32,7 @@ function App() {
       if (r.ok){
         r.json().then((user)=> {
           setUser(user)
-          store.dispatch({type:'login'})
+          store.dispatch({type:'LOGIN'})
         })
       }
     })
