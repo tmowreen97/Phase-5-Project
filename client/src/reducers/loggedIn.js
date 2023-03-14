@@ -4,7 +4,7 @@ const loggedInReducer = (state = false, action) => {
       // debugger
       return true;
     case 'LOGOUT':
-      return !state;
+      return false;
     default:
       return state;
   }

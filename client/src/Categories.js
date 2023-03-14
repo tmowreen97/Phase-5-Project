@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+import {useNavigate} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-function Categories(){
-  const [categories, setCategories]= useState([])
-  useEffect(()=> {
-    fetch("/categories").then(r=>r.json()).then(categories => setCategories(categories))
-  },[])
+function Categories({categories}){
+  // const [categories, setCategories]= useState([])
+  const navigate = useNavigate()
+  // useEffect(()=> {
+  //   fetch("/categories").then(r=>r.json()).then(categories => setCategories(categories))
+  // },[])
 
   categories.map((category)=> {
     console.log(category.name)
@@ -24,7 +26,7 @@ function Categories(){
                 Some quick example text to build on the card title and make up the
                 bulk of the card's content.
               </Card.Text> */}
-              <Button variant="primary">Go somewhere</Button>
+              <Button variant="primary" onClick={()=> navigate(`/categories/${category.id}`) }>Go somewhere</Button>
             </Card.Body>
           </Card>
         </div>

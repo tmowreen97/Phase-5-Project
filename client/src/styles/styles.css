@@ -1,0 +1,32 @@
+.home-title{
+  padding: 80px;
+  padding-top:225px;
+  font-family: 'Abril Fatface';
+  font-size: 150px;
+  font-style: italic;
+  font-weight: lighter;
+  color: white;
+}
+
+.home-page{
+  background-color: #D9E8F5;
+}
+
+.home-title-description{
+  font-size:25px;
+  padding-left: 80px;
+  padding-bottom: 400px;
+}
+
+.app{
+  font-family: Lora;
+}
+
+.why-self-full, .why-self-care, .what-is-self-care{
+  padding: 100px;
+
+}
+
+h2{
+  padding-bottom: 20px;
+}

@@ -10,6 +10,11 @@ class CategoriesController < ApplicationController
     render json: category, status: :ok
   end
 
+  def show
+    category = Category.find_by(id: params[:id])
+    render json: category, status: :ok
+  end
+
   private
 
   def category_params
