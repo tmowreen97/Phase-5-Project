@@ -33,7 +33,7 @@ function Navigation({setUser}) {
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link href="/categories">Categories</Nav.Link>
+            <Nav.Link href="/all-categories">Categories</Nav.Link>
             <Nav.Link href="/add-experience">Add Experience</Nav.Link>
           </Nav>
         </Navbar.Collapse>

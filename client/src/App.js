@@ -44,7 +44,9 @@ function App() {
 
   //gets all the categories
   useEffect(()=> {
-    fetch("/categories").then(r=>r.json()).then(categories => setCategories(categories))
+    fetch("/categories").then(
+      r=>r.json()
+      ).then((categories) => {setCategories(categories)})
   },[])
 
 
@@ -57,7 +59,7 @@ function App() {
         <Route element={<Login setUser={setUser}/>} path="/login"/>
         <Route element={<SignUp setUser={setUser}/>} path="/signup"/>
         {user && <Route element={<Profile user={user} setUser={setUser}/>} path="/profile"/>}
-        {categories && <Route element={<Categories categories={categories}/>} path="/categories"/>}
+        {categories && <Route element={<Categories categories={categories}/>} path="/all-categories"/>}
         {categories && <Route element={<CategoryShow categories={categories}/>} path="/categories/:id"/>}
         <Route element={<Home user={user}/>} exact path="/"/>
       </Routes>
