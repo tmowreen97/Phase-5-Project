@@ -10,7 +10,7 @@ function SignUp(props){
     bio: ""
   })
   const [errors, setErrors] = useState([])
-
+  console.log(errors)
   function handleSignUp(e){
     e.preventDefault()
     fetch("/signup", {
@@ -34,7 +34,7 @@ function SignUp(props){
         })
       } else {
         r.json().then((err)=> {
-          setErrors(err.error)
+          setErrors(err.errors)
           setUserHash({
             username: "",
             password: "",
@@ -46,33 +46,69 @@ function SignUp(props){
     })
   }
   return(
-    <div>
-      <form onSubmit={(e)=> handleSignUp(e)}>
-        <label>Username:</label>
-        <input type="text" onChange={(e)=> setUserHash(prevState => {
-          return {...prevState, username: e.target.value}
-        })}/>
-        <label>Password:</label>
-        <input type="text" onChange={(e)=> setUserHash(prevState => {
-          return {...prevState, password: e.target.value}
-        })}/>
-        <label>Password Confirmation:</label>
-        <input type="text" onChange={(e)=> setUserHash(prevState => {
-          return {...prevState, password_confirmation: e.target.value}
-        })}/>
-        <label>Bio:</label>
-        <input type="text" onChange={(e)=> setUserHash(prevState => {
-          return {...prevState, bio: e.target.value}
-        })}/>
-        <button type='submit'>Submit</button>     
-      </form>
-      <label>Already have an account?</label>
-      <button onClick={()=> navigate("/login")}>Login</button>
-      <label>Return to Home</label>
-      <button onClick={()=> navigate('/')}>Close</button> 
-      {errors && 
-      <p>{errors}</p>
-      }   
+    <div className="signup">
+      <div className="signup-box">
+      <button className='close-btn' onClick={()=> navigate('/')}>ⓧ</button> 
+      <div className="signup-form">
+        <h4 className="signup-title">Sign up:</h4>
+        <form onSubmit={(e)=> handleSignUp(e)}>
+          <div className="input-box">
+            <label>👤</label>
+            <input 
+            type="text" 
+            placeholder="Username"
+            value={userHash.username}
+            onChange={(e)=> setUserHash(prevState => {
+              return {...prevState, username: e.target.value}
+            })}/>
+          </div>
+          <div className="input-box">
+            <label>🔒</label>
+            <input 
+            type="password"
+            placeholder="Password" 
+            value={userHash.password}
+            onChange={(e)=> setUserHash(prevState => {
+              return {...prevState, password: e.target.value}
+            })}/>
+          </div>
+          
+          <div className="input-box">
+            <label>🔐</label>
+            <input 
+            type="password" 
+            placeholder="Password Confirmation"
+            onChange={(e)=> setUserHash(prevState => {
+              return {...prevState, password_confirmation: e.target.value}
+            })}/>
+          </div>
+          <div className="input-box">
+            <label>💬</label>
+            <input 
+            className="bio-input"
+            type="text"
+            placeholder="Tell us about yourself!"
+            onChange={(e)=> setUserHash(prevState => {
+              return {...prevState, bio: e.target.value}
+            })}/>
+          </div>
+          <button type='submit'>Submit</button>     
+        </form>
+        <div className="have-account">
+          <label>Already have an account?</label>
+          <button className='login-btn' onClick={()=> navigate("/login")}>Login</button>
+        </div>
+        
+        {errors && errors.map((error)=> {
+          return(
+            <p className="errors">{error}</p>
+          )
+        })
+        
+        }   
+      </div>
+      </div>
+
     </div>
 
   )

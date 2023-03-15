@@ -1,3 +1,4 @@
+/* HOME PAGE */
 .home-title{
   padding: 80px;
   padding-top:225px;
@@ -30,4 +31,131 @@
 h2{
   padding-bottom: 20px;
 }
+
+/* CATEGORY SHOW */
+
+.category-show{
+  padding: 100px;
+  padding-bottom: 100%;
+  background-color: #FFF0F5;
+}
+
+.category-title {
+  padding-bottom: 40px;
+}
+
+.description{
+  padding-bottom: 40px;
+}
+
+.activity-list-item{
+  list-style-type: '🖤 ';
+  list-style-position: outside;
+  padding-left: 20px;
+  padding-bottom: 10px;
+}
+
+.activities-title, .category-description-title{
+  padding-bottom: 10px;
+}
+
+
+/* LOGIN */
+/* from home page */
+.login-button{
+  border: none;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 50px;
+  border: none;
+  background-color: white; 
+}
+
+.login, .signup{
+  /* padding-top: 80px;
+  padding-bottom: 100%; */
+  background-image: url('https://img.freepik.com/premium-photo/pastel-color-sea-sky-beautiful-landscape-seaside-background_51012-573.jpg');
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.85;
+}
+
+
+.login-box, .signup-box{
+  position: relative;
+  background-color: #FDF4EA;
+  width:400px;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.login-title, .signup-title{
+  font-size: 2em;
+  text-align: center;
+
+}
+
+.close-btn{
+  position: absolute;
+  right:5px;
+  top: 8px;
+  border: none;
+  border-radius: 50%;
+  background-color: white;
+  
+}
+
+.close-btn:hover{
+  color:white;
+  background-color: black;
+}
+
+input[type=text], input[type=password], input[type=number], select {
+  margin: 10px;
+  width: 85%;
+
+} 
+
+button[type=submit]{
+  background-color: white;
+  border: none;
+  width: 100%;
+  margin: 5px;
+  padding: 8px;
+}
+
+.sign-up-btn, .login-btn{
+  background-color: white;
+  border: none;
+  margin: 5px;
+  padding: 8px;
+}
+
+.sign-up-btn:hover, .login-btn:hover, button[type=submit]:hover{
+  background-color: #DFECF8;
+}
+
+.errors{
+  color: red
+}
+
+.bio-input{
+  height: 60px;
+}
+
+
 

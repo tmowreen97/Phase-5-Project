@@ -30,8 +30,8 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     params.permit(:username, :password, :password_confirmation, :bio)
   end
 
-  def render_unprocessable_entity
-    render json: {errors: error.record.full_messages}, status: :unprocessable_entity
+  def render_unprocessable_entity invalid
+    render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
   end
 
   def render_not_found_response

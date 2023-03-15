@@ -9,7 +9,7 @@ function Home({user}){
   return(
     <div>
       <div className="home-page">
-        {!user && <button onClick={(e)=> handleClick(e)}>Login</button>}
+        {!user && <button className='login-button' onClick={(e)=> handleClick(e)}>Login</button>}
         <h1 className="home-title">Self/Full</h1>
         <p className="home-title-description">The place for all your self-care needs.</p>      
       </div>

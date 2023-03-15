@@ -15,14 +15,12 @@ function CategoryShow({categories}){
   return(
     currentCategory.map((category)=> {
       return(
-        <div>
-          <h1>{category.name}</h1>
-          <h3>Description:</h3>
-          <h5>{category.description}</h5>
-          <h3>Activities:</h3>
+        <div className='category-show'>
+          <h1 className='category-title'>{category.name}</h1>
+          <h4 className='category-description-title'>Description:</h4>
+          <h5 className='description'>{category.description}</h5>
           <CategoryActivities category={category}/>
         </div>
-        
       )
     })
   )
@@ -32,8 +30,14 @@ export default CategoryShow;
 
 const CategoryActivities = ({category}) => {
   return(
-    category.activities.map((activity)=> {
-      return(<li>{activity.name}</li>)
-    })
+    <div>
+          <h4 className='activities-title'>Activities:</h4>
+          {category.activities.map((activity)=> {
+            return(
+              <li className='activity-list-item'>{activity.name}</li>
+            )
+          })}
+    </div>
+
   )
 }

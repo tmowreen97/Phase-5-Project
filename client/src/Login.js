@@ -50,25 +50,45 @@ function Login(props){
 
 
   return(
-    <div>
-      <form onSubmit={(e)=> handleLogin(e)}>
-        <label>Username:</label>
-        <input type="text" onChange={(e)=> setUserHash(prevState => {
-          return {...prevState, username: e.target.value}
-        })}/>
-        <label>Password:</label>
-        <input type="password" onChange={(e)=> setUserHash(prevState => {
-          return {...prevState, password: e.target.value}
-        })}/>        
-        <button type='submit'>Login</button>     
-      </form>
-      <label>Don't have an account?</label>
-      <button onClick={()=> navigate("/signup")}>Sign Up</button>      
-      <label>Return to Home</label>
-      <button onClick={()=> navigate('/')}>Close</button> 
-      {errors && 
-        <p>{errors}</p>
-      }
+    <div className="login">
+      <div className="login-box">
+      <button className='close-btn' onClick={()=> navigate('/')}>ⓧ</button> 
+        <div className="login-form">
+          <h4 className="login-title">Login:</h4>
+          <form onSubmit={(e)=> handleLogin(e)}>
+            <div className="input-box">
+              <label>👤</label>
+              <input 
+              type="text" 
+              placeholder="Username"
+              value={userHash.username}
+              onChange={(e)=> setUserHash(prevState => {
+                return {...prevState, username: e.target.value}
+              })}/>
+            </div>
+            <div className="input-box">
+              <label>🔒</label>
+              <input 
+              type="password"
+              placeholder="Password"
+              value={userHash.password}
+              onChange={(e)=> setUserHash(prevState => {
+                return {...prevState, password: e.target.value}
+              })}/> 
+            </div>
+            <button type='submit'>Login</button>     
+          </form>
+          <div className="no-account">
+            <label>Don't have an account?</label>
+            <button className='sign-up-btn' onClick={()=> navigate("/signup")}>Sign Up</button>
+          </div>
+          {errors && 
+            <p className="errors">{errors}</p>
+          }
+        </div>
+      </div>
+
+
     </div>
 
   )

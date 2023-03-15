@@ -9,21 +9,26 @@
   margin-right: 40px; */
   padding-left: 60px;
   padding-right: 60px;
-  background-color: azure;
+  padding-top: 70px;
+  background-color: #E1EEDB;
+  padding-bottom: 100%;
 
 }
 
 
 .box{
-  max-height: fit-content;
-  border-radius: 10px;
-  height: 300px;
+  max-height: 250px;
+  border-radius: 8px;
+  height: 250px;
   max-height: 50vh;
   padding: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   margin: 20px;
   margin-bottom: 40px;
   align-items: center;
   cursor: pointer;
+  opacity: 0.85;
 }
 
 .category-button{
