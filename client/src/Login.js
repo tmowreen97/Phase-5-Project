@@ -30,6 +30,7 @@ function Login(props){
             username: "",
             password: ""
           })
+          props.setIsLogged(true)
           navigate("/profile")
         })
       } else {

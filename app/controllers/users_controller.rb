@@ -23,6 +23,17 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     end
   end
 
+  #update, to update user bio
+  def update
+    user = User.find_by(id: params[:id])
+    if user
+      user.update!(user_params)
+      render json: user, status: :ok
+    else
+      rais ActiveRecord::RecordInvalid
+    end
+  end
+
 
   private
 

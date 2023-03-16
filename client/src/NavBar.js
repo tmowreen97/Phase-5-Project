@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useSelector, useDispatch } from 'react-redux';
 
-function Navigation({setUser}) {
+function Navigation({setUser, setIsLogged}) {
 
   const dispatch = useDispatch()
 
@@ -33,7 +33,7 @@ function Navigation({setUser}) {
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link href="/all-categories">Categories</Nav.Link>
+            <Nav.Link href="/categories">Categories</Nav.Link>
             <Nav.Link href="/add-experience">Add Experience</Nav.Link>
           </Nav>
         </Navbar.Collapse>

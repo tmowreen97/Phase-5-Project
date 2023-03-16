@@ -19,15 +19,16 @@ function App() {
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 
-  console.log(store.getState())
-  store.subscribe(function(){
-    // debugger
-    const state = store.getState()
-    console.log(state)
-  })
+  // console.log('just console.log', store.getState())
+  // store.subscribe(function(){
+  //   // debugger
+  //   const state = store.getState()
+  //   console.log('in subscribe', state)
+  // })
 
 
   const [user, setUser]= useState(null)
+  const [isLogged, setIsLogged] = useState(false)
   const [categories, setCategories]= useState(null)
 
   //keeps user logged in
@@ -36,31 +37,35 @@ function App() {
       if (r.ok){
         r.json().then((user)=> {
           setUser(user)
-          store.dispatch({type:'LOGIN'})
+          // store.dispatch({type:'LOGIN'})
+          // store.dispatch({type:'SET_USER', payload: user})
+          console.log('useEffect', user)
         })
       }
     })
-  }, [])
+  }, [isLogged])
+
+  console.log('isLogged', isLogged)
 
   //gets all the categories
   useEffect(()=> {
     fetch("/categories").then(
       r=>r.json()
       ).then((categories) => {setCategories(categories)})
-  },[])
+  },[isLogged])
 
 
   console.log('user', user)
   return (
     <Provider store={store}>
       <div className="app">
-      {user && <Navigation setUser={setUser}/>}
+      {user && <Navigation setIsLogged={setIsLogged} setUser={setUser}/>}
       <Routes>
-        <Route element={<Login setUser={setUser}/>} path="/login"/>
+        <Route element={<Login setIsLogged={setIsLogged} setUser={setUser}/>} path="/login"/>
         <Route element={<SignUp setUser={setUser}/>} path="/signup"/>
         {user && <Route element={<Profile user={user} setUser={setUser}/>} path="/profile"/>}
-        {categories && <Route element={<Categories categories={categories}/>} path="/all-categories"/>}
-        {categories && <Route element={<CategoryShow categories={categories}/>} path="/categories/:id"/>}
+        {categories && <Route element={<Categories categories={categories}/>} path="/categories"/>}
+        {categories && <Route element={<CategoryShow categories={categories} user={user}/>} path="/categories/:id"/>}
         <Route element={<Home user={user}/>} exact path="/"/>
       </Routes>
       </div>

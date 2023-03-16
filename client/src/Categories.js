@@ -21,7 +21,7 @@ function Categories({categories}){
     <div className="grid">
       {categories && categories.map((category)=> {
         return(
-          <Card style={{ width: '18rem' }} className='box' onClick={()=> navigate(`/categories/${category.id}`)}>
+          <Card key={category.id} style={{ width: '18rem' }} className='box' onClick={()=> navigate(`/categories/${category.id}`)}>
           <Card.Img variant="top" src={category.img} />
           <Card.Body>
             <Card.Title>{category.name}</Card.Title>

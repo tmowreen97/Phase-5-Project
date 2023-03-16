@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 function Profile({user, setUser}){
   console.log(user)
-  const test = useSelector(state => state.test)
+  const userRedux = useSelector(state => state.user)
   const dispatch = useDispatch()
-  console.log(test)
+  console.log('userRedux in Profile', userRedux)
 
  return(
     <div>
