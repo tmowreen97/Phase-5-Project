@@ -124,6 +124,10 @@ h2{
   background-color: black;
 }
 
+.edit-input{
+  width: 20%;
+}
+
 input[type=text], input[type=password], input[type=number], select {
   margin: 10px;
   width: 85%;
@@ -155,6 +159,16 @@ button[type=submit]{
 
 .bio-input{
   height: 60px;
+}
+
+/* CATEGORY SHOW EXPERIENCES */
+.edit-experience-button{
+  border: none;
+
+}
+
+.experience-list-item, .edit-experience-button {
+  display: inline-flex;
 }
 
 

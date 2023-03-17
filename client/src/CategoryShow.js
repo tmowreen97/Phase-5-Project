@@ -2,15 +2,10 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import { useState } from 'react';
 
-function CategoryShow({categories, user}){
-
-  const [showEdit, setShowEdit] = useState(false)
+function CategoryShow({categories, user, handleEditExperience}){
 
   //to handle edit experience PATCH request
-  function handleEditExperience(e){
-    e.preventDefault()
-    console.log(e.target.value)
-  }
+  
 
   let { id } = useParams()
   console.log({id})
@@ -21,6 +16,8 @@ function CategoryShow({categories, user}){
   })
   console.log(currentCategory)
 
+
+
   return(
     currentCategory.map((category)=> {
       return(
@@ -29,7 +26,7 @@ function CategoryShow({categories, user}){
           <h4 className='category-description-title'>Description:</h4>
           <h5 className='description'>{category.description}</h5>
           <CategoryActivities category={category}/>
-          <CategoryExperiences category={category} user={user} showEdit={showEdit} setShowEdit={setShowEdit} handleEditExperience={handleEditExperience}/>
+          <CategoryExperiences category={category} user={user} handleEditExperience={handleEditExperience}/>
         </div>
       )
     })
@@ -52,24 +49,20 @@ const CategoryActivities = ({category}) => {
   )
 }
 
-const CategoryExperiences = ({category, user, showEdit, setShowEdit, handleEditExperience}) => {
+const CategoryExperiences = ({category, user, handleEditExperience}) => {
   const [showPopUp, setShowPopUp] = useState(false)
+  const [experiences, setExperiences] = useState(category.experiences)
+  console.log('experiences,', experiences)
   return(
     <div className='category-experiences'>
-      {/* {showEdit ? <button>Edit Mode</button> : ''} */}
       <h4 className='experiences-title'>Experiences:</h4>
-      {category.experiences.map((experience)=>{
-        if (experience.username == user.username){
-          setShowEdit(true)
-        }
+      {experiences.map((experience)=>{
         return(
-          <>
+          <div className='experience-list-section'>
             <li key={experience.id} className='experience-list-item'>{experience.comment} -@{experience.username}</li>
-            {showPopUp ? <PopUpEditForm comment={experience.comment} handleEditExperience={handleEditExperience}/> : ''}
-            {showEdit ? <button onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? 'Close' : 'Edit'}</button> : ''}
-          </>
-          
-
+            {showPopUp && (experience.username == user.username) ? <PopUpEditForm setShowPopUp={setShowPopUp} comment={experience} handleEditExperience={handleEditExperience} setExperiences={setExperiences} experiences={experiences}/> : ''}
+            {(experience.username == user.username) ? <button className='edit-experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? '' : '✎'}</button> : ''}
+          </div>
         )
       })
 
@@ -79,18 +72,45 @@ const CategoryExperiences = ({category, user, showEdit, setShowEdit, handleEditE
   )
 }
 
-const PopUpEditForm= ({comment, handleEditExperience}) => {
+const PopUpEditForm= ({comment, handleEditExperience, setExperiences, experiences, setShowPopUp}) => {
   const [editComment, setEditComment] = useState(comment)
+
+  function handleEditExperience(e, editComment){
+    e.preventDefault()
+    console.log('in edit function', experiences, 'edit', editComment)
+    const updatedExperiences = experiences.filter((experience)=> {
+      return (experience.id != editComment.id)
+    })
+    console.log(updatedExperiences)
+    fetch(`/experiences/${editComment.id}`, {
+      method: 'PATCH',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(editComment)
+    })
+    .then(resp=> resp.json())
+    .then(data => {
+      setShowPopUp(false)
+      updatedExperiences.push(data)
+      setExperiences(updatedExperiences)
+    })
+  }
+
   return(
     <form>
       <input 
       type='text'
-      value={editComment}
+      className='edit-input'
+      value={editComment.comment}
       onChange={(e)=> {
-        setEditComment(e.target.value)
+        setEditComment(prevState => {
+          return {...prevState, comment: e.target.value}
+        })
       }}
       />
-      <button type='submit' onClick={(e)=> handleEditExperience(e)}>Submit</button>
+      <button type='submit' onClick={(e)=> handleEditExperience(e, editComment)}>Submit</button>
+      <button onClick={() => setShowPopUp(false)}>Close</button>
     </form>
   )
 }

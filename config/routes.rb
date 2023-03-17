@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   
   resources :categories, only:[:index, :update, :show]
   resources :activities, only: [:index]
-  resources :users, only:[:update]
+  resources :experiences, only: [:index, :update]
+  # resources :users
   post "/signup", to: "users#create"
   get "/me", to: "users#show"
   post "/login", to: "sessions#create"
