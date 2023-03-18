@@ -123,15 +123,15 @@ const CategoryExperiences = ({category, user, handleEditExperience}) => {
   return(
     <div className='category-experiences'>
       <h4 className='experiences-title'>Experiences:</h4>
-      <button onClick={() => setShowAddForm(!showAddForm)}>{showAddForm ? 'Close' : 'Add'}</button>
+      <button className='add-button' onClick={() => setShowAddForm(!showAddForm)}>{showAddForm ? 'Close' : 'Add Experience'}</button>
       {showAddForm && <AddForm handleAddExperience={handleAddExperience}/>}
       {experiences.map((experience)=>{
         return(
           <div className='experience-list-section'>
             <li key={experience.id} className='experience-list-item'>{experience.comment} -@{experience.username}</li>
+            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? 'Close' : '✎'}</button> : ''}
+            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showConfirm ? '' : '🗑'}</button> : ''}
             {showPopUp && (experience.username == user.username) ? <PopUpEditForm setShowPopUp={setShowPopUp} comment={experience} handleEditExperience={handleEditExperience} setExperiences={setExperiences} experiences={experiences}/> : ''}
-            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? '' : '✎'}</button> : ''}
-            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showPopUp ? '' : '🗑'}</button> : ''}
             {showConfirm && (experience.username == user.username) ?  <ConfirmDeleteForm setShowConfirm={setShowConfirm} handleDelete={handleDelete} id={experience.id}/> : ''}
           </div>
         )
@@ -159,7 +159,6 @@ const PopUpEditForm= ({comment, handleEditExperience, setExperiences, experience
       }}
       />
       <button className='edit-button' type='submit' onClick={(e)=> handleEditExperience(e, editComment)}>Submit</button>
-      <button className='edit-button' onClick={() => setShowPopUp(false)}>Close</button>
     </form>
   )
 }
@@ -187,7 +186,7 @@ const AddForm= ({handleAddExperience}) => {
           value={newExperience}
           onChange={(e)=> setNewExperience(e.target.value)}
         />
-        <button type='submit'>Submit</button>
+        <button className='submit-add' type='submit'>Submit</button>
       </form>
       
 

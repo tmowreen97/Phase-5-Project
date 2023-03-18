@@ -209,10 +209,18 @@ h2{
 
 }
 
-.edit-button{
+.submit-add, .edit-button{
   border: none;
   background-color: white;
   padding: 5px;
   margin:2px;
   font-size: 90%;
+}
+
+.add-button{
+  border: none;
+  background-color: white;
+  padding: 5px;
+  margin: 2px;
+  margin-bottom: 8px;
 }
