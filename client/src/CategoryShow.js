@@ -52,40 +52,12 @@ const CategoryActivities = ({category}) => {
 const CategoryExperiences = ({category, user, handleEditExperience}) => {
   const [showPopUp, setShowPopUp] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const [showAddForm, setShowAddForm] = useState(false)
 
   const [experiences, setExperiences] = useState(category.experiences)
   console.log('experiences,', experiences)
-
-  function handleDelete(id){
-    const updatedExperiences = experiences.filter((experience)=> {
-      return (experience.id != id)
-    })
-    setExperiences(updatedExperiences)
-
-  }
-  return(
-    <div className='category-experiences'>
-      <h4 className='experiences-title'>Experiences:</h4>
-      {experiences.map((experience)=>{
-        return(
-          <div className='experience-list-section'>
-            <li key={experience.id} className='experience-list-item'>{experience.comment} -@{experience.username}</li>
-            {showPopUp && (experience.username == user.username) ? <PopUpEditForm setShowPopUp={setShowPopUp} comment={experience} handleEditExperience={handleEditExperience} setExperiences={setExperiences} experiences={experiences}/> : ''}
-            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? '' : '✎'}</button> : ''}
-            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showPopUp ? '' : '🗑'}</button> : ''}
-            {showConfirm && (experience.username == user.username) ?  <ConfirmDeleteForm setShowConfirm={setShowConfirm} handleDelete={handleDelete} experience={experience.id}/> : ''}
-          </div>
-        )
-      })
-
-      }
-
-    </div>
-  )
-}
-
-const PopUpEditForm= ({comment, handleEditExperience, setExperiences, experiences, setShowPopUp}) => {
-  const [editComment, setEditComment] = useState(comment)
+  console.log('category', category)
+  console.log('user', user)
 
   function handleEditExperience(e, editComment){
     e.preventDefault()
@@ -102,11 +74,77 @@ const PopUpEditForm= ({comment, handleEditExperience, setExperiences, experience
     })
     .then(resp=> resp.json())
     .then(data => {
-      setShowPopUp(false)
+      setShowPopUp(!showPopUp)
       updatedExperiences.push(data)
       setExperiences(updatedExperiences)
     })
   }
+
+  function handleDelete(e, id){
+    e.preventDefault()
+    const updatedExperiences = experiences.filter((experience)=> {
+      return (experience.id != id)
+    })
+    fetch(`/experiences/${id}`, {
+      method: 'DELETE'
+    })
+    .then(resp=> resp.json)
+    .then(data => {
+      setShowConfirm(!showConfirm)
+      setExperiences(updatedExperiences)
+    })
+  }
+
+  function handleAddExperience(e, newExperience){
+    e.preventDefault()
+    console.log(newExperience)
+    const updatedExperiences = [...experiences]
+    console.log('updated', updatedExperiences)
+    fetch('/experiences', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        comment: newExperience,
+        user_id: user.id,
+        category_id: category.id
+      })
+    })
+    .then(resp=> resp.json())
+    .then(data => {
+      updatedExperiences.push(data)
+      setExperiences(updatedExperiences)
+    })
+    setShowAddForm(!showAddForm)
+    
+
+  }
+  return(
+    <div className='category-experiences'>
+      <h4 className='experiences-title'>Experiences:</h4>
+      <button onClick={() => setShowAddForm(!showAddForm)}>{showAddForm ? 'Close' : 'Add'}</button>
+      {showAddForm && <AddForm handleAddExperience={handleAddExperience}/>}
+      {experiences.map((experience)=>{
+        return(
+          <div className='experience-list-section'>
+            <li key={experience.id} className='experience-list-item'>{experience.comment} -@{experience.username}</li>
+            {showPopUp && (experience.username == user.username) ? <PopUpEditForm setShowPopUp={setShowPopUp} comment={experience} handleEditExperience={handleEditExperience} setExperiences={setExperiences} experiences={experiences}/> : ''}
+            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? '' : '✎'}</button> : ''}
+            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showPopUp ? '' : '🗑'}</button> : ''}
+            {showConfirm && (experience.username == user.username) ?  <ConfirmDeleteForm setShowConfirm={setShowConfirm} handleDelete={handleDelete} id={experience.id}/> : ''}
+          </div>
+        )
+      })
+
+      }
+
+    </div>
+  )
+}
+
+const PopUpEditForm= ({comment, handleEditExperience, setExperiences, experiences, setShowPopUp}) => {
+  const [editComment, setEditComment] = useState(comment)
 
   return(
     <form>
@@ -126,15 +164,34 @@ const PopUpEditForm= ({comment, handleEditExperience, setExperiences, experience
   )
 }
 
-const ConfirmDeleteForm= ({setShowConfirm, handleDelete, experience})=> {
+const ConfirmDeleteForm= ({setShowConfirm, handleDelete, id})=> {
   return(
     <div className='delete-form'>
       <div className='delete-confirm'>
         <h5>Are you sure you want to delete?</h5>
         <button className='confirm-button' onClick={()=> setShowConfirm(false)}>No</button>
-        <button className='confirm-button' onClick={()=> handleDelete(experience)}>Yes</button>
+        <button className='confirm-button' type='submit' onClick={(e)=> handleDelete(e,id)}>Yes</button>
       </div>
     </div>
 
   )
+}
+
+const AddForm= ({handleAddExperience}) => {
+  const [newExperience, setNewExperience] = useState('')
+  return(
+    <div className='add-form'>
+      <form onSubmit={(e)=> handleAddExperience(e, newExperience)}>
+        <input
+          type= 'text'
+          value={newExperience}
+          onChange={(e)=> setNewExperience(e.target.value)}
+        />
+        <button type='submit'>Submit</button>
+      </form>
+      
+
+    </div>
+  )
+  
 }

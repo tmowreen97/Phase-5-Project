@@ -29,7 +29,7 @@ function App() {
 
   const [user, setUser]= useState(null)
   const [isLogged, setIsLogged] = useState(false)
-  const [categories, setCategories]= useState(null)
+  const [categories, setCategories]= useState([])
 
   //keeps user logged in
   useEffect(()=> {
