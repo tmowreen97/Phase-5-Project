@@ -55,6 +55,7 @@ function SignUp(props){
           <div className="input-box">
             <label>👤</label>
             <input 
+            className="signup-input"
             type="text" 
             placeholder="Username"
             value={userHash.username}
@@ -65,6 +66,7 @@ function SignUp(props){
           <div className="input-box">
             <label>🔒</label>
             <input 
+            className="signup-input"
             type="password"
             placeholder="Password" 
             value={userHash.password}
@@ -76,6 +78,7 @@ function SignUp(props){
           <div className="input-box">
             <label>🔐</label>
             <input 
+            className="signup-input"
             type="password" 
             placeholder="Password Confirmation"
             onChange={(e)=> setUserHash(prevState => {
@@ -92,7 +95,7 @@ function SignUp(props){
               return {...prevState, bio: e.target.value}
             })}/>
           </div>
-          <button type='submit'>Submit</button>     
+          <button className="signup-submit" type='submit'>Submit</button>     
         </form>
         <div className="have-account">
           <label>Already have an account?</label>

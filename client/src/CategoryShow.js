@@ -51,8 +51,18 @@ const CategoryActivities = ({category}) => {
 
 const CategoryExperiences = ({category, user, handleEditExperience}) => {
   const [showPopUp, setShowPopUp] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
+
   const [experiences, setExperiences] = useState(category.experiences)
   console.log('experiences,', experiences)
+
+  function handleDelete(id){
+    const updatedExperiences = experiences.filter((experience)=> {
+      return (experience.id != id)
+    })
+    setExperiences(updatedExperiences)
+
+  }
   return(
     <div className='category-experiences'>
       <h4 className='experiences-title'>Experiences:</h4>
@@ -61,7 +71,9 @@ const CategoryExperiences = ({category, user, handleEditExperience}) => {
           <div className='experience-list-section'>
             <li key={experience.id} className='experience-list-item'>{experience.comment} -@{experience.username}</li>
             {showPopUp && (experience.username == user.username) ? <PopUpEditForm setShowPopUp={setShowPopUp} comment={experience} handleEditExperience={handleEditExperience} setExperiences={setExperiences} experiences={experiences}/> : ''}
-            {(experience.username == user.username) ? <button className='edit-experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? '' : '✎'}</button> : ''}
+            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? '' : '✎'}</button> : ''}
+            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showPopUp ? '' : '🗑'}</button> : ''}
+            {showConfirm && (experience.username == user.username) ?  <ConfirmDeleteForm setShowConfirm={setShowConfirm} handleDelete={handleDelete} experience={experience.id}/> : ''}
           </div>
         )
       })
@@ -77,7 +89,6 @@ const PopUpEditForm= ({comment, handleEditExperience, setExperiences, experience
 
   function handleEditExperience(e, editComment){
     e.preventDefault()
-    console.log('in edit function', experiences, 'edit', editComment)
     const updatedExperiences = experiences.filter((experience)=> {
       return (experience.id != editComment.id)
     })
@@ -109,8 +120,21 @@ const PopUpEditForm= ({comment, handleEditExperience, setExperiences, experience
         })
       }}
       />
-      <button type='submit' onClick={(e)=> handleEditExperience(e, editComment)}>Submit</button>
-      <button onClick={() => setShowPopUp(false)}>Close</button>
+      <button className='edit-button' type='submit' onClick={(e)=> handleEditExperience(e, editComment)}>Submit</button>
+      <button className='edit-button' onClick={() => setShowPopUp(false)}>Close</button>
     </form>
+  )
+}
+
+const ConfirmDeleteForm= ({setShowConfirm, handleDelete, experience})=> {
+  return(
+    <div className='delete-form'>
+      <div className='delete-confirm'>
+        <h5>Are you sure you want to delete?</h5>
+        <button className='confirm-button' onClick={()=> setShowConfirm(false)}>No</button>
+        <button className='confirm-button' onClick={()=> handleDelete(experience)}>Yes</button>
+      </div>
+    </div>
+
   )
 }

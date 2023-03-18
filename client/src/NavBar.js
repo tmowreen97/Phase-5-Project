@@ -18,7 +18,6 @@ function Navigation({setUser, setIsLogged}) {
     .then((r)=>{
       if(r.ok){
         setUser(null)
-        dispatch({type:'LOGOUT'})
         navigate("/")
       }
     })
@@ -37,7 +36,7 @@ function Navigation({setUser, setIsLogged}) {
             <Nav.Link href="/add-experience">Add Experience</Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        <button onClick={(e)=> handleLogout(e)}>Logout</button>
+        <button className='logout-button' onClick={(e)=> handleLogout(e)}>Logout</button>
       </Container>
     </Navbar>
   );

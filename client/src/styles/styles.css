@@ -62,7 +62,7 @@ h2{
 
 /* LOGIN */
 /* from home page */
-.login-button{
+.login-button, .logout-button{
   border: none;
   position: absolute;
   right: 0px;
@@ -128,13 +128,13 @@ h2{
   width: 20%;
 }
 
-input[type=text], input[type=password], input[type=number], select {
+.signup-input, .login-input{
   margin: 10px;
   width: 85%;
 
 } 
 
-button[type=submit]{
+.login-submit, .signup-submit{
   background-color: white;
   border: none;
   width: 100%;
@@ -149,7 +149,7 @@ button[type=submit]{
   padding: 8px;
 }
 
-.sign-up-btn:hover, .login-btn:hover, button[type=submit]:hover{
+.login-submit:hover,.signup-submit:hover, .sign-up-btn:hover, .login-btn:hover{
   background-color: #DFECF8;
 }
 
@@ -158,12 +158,16 @@ button[type=submit]{
 }
 
 .bio-input{
+  margin: 10px;
   height: 60px;
+  width:85%
 }
 
 /* CATEGORY SHOW EXPERIENCES */
-.edit-experience-button{
+.experience-button{
   border: none;
+  background-color: white;
+  margin: 2px;
 
 }
 
@@ -171,5 +175,44 @@ button[type=submit]{
   display: inline-flex;
 }
 
+/* POPUP FORMS */
+.confirm-button{
+  border:none;
+  margin: 8px;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: white;
+    font-size: 90%;
 
+}
 
+.delete-form{
+  position: fixed;
+  top: 50%;
+  bottom: 50%;
+  right:0;
+  left:0;
+  /* bottom: 0; */
+  align-items: center;
+}
+
+.delete-confirm{
+  background-color: rgb(245, 201, 213);
+  border-radius: 8px;
+  margin-left: 400px;
+  margin-right: 400px;
+  padding-top: 80px ;
+  padding-bottom: 80px ;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.edit-button{
+  border: none;
+  background-color: white;
+  padding: 5px;
+  margin:2px;
+  font-size: 90%;
+}

@@ -69,8 +69,8 @@ function App() {
         <Route element={<Login setIsLogged={setIsLogged} setUser={setUser}/>} path="/login"/>
         <Route element={<SignUp setUser={setUser}/>} path="/signup"/>
         {user && <Route element={<Profile user={user} setUser={setUser}/>} path="/profile"/>}
-        {categories && <Route element={<Categories categories={categories}/>} path="/categories"/>}
-        {categories && <Route element={<CategoryShow categories={categories} user={user} />} path="/categories/:id"/>}
+        {user && <Route element={<Categories categories={categories}/>} path="/categories"/>}
+        {user && <Route element={<CategoryShow categories={categories} user={user} />} path="/categories/:id"/>}
         <Route element={<Home user={user}/>} exact path="/"/>
       </Routes>
       </div>

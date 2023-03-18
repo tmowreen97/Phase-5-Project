@@ -60,6 +60,7 @@ function Login(props){
             <div className="input-box">
               <label>👤</label>
               <input 
+              className="login-input"
               type="text" 
               placeholder="Username"
               value={userHash.username}
@@ -70,6 +71,7 @@ function Login(props){
             <div className="input-box">
               <label>🔒</label>
               <input 
+              className="login-input"
               type="password"
               placeholder="Password"
               value={userHash.password}
@@ -77,7 +79,7 @@ function Login(props){
                 return {...prevState, password: e.target.value}
               })}/> 
             </div>
-            <button type='submit'>Login</button>     
+            <button className='login-submit' type='submit'>Login</button>     
           </form>
           <div className="no-account">
             <label>Don't have an account?</label>
