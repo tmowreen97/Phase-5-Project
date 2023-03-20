@@ -33,7 +33,7 @@ function Navigation({setUser, setIsLogged}) {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/profile">Profile</Nav.Link>
             <Nav.Link href="/categories">Categories</Nav.Link>
-            <Nav.Link href="/add-experience">Add Experience</Nav.Link>
+            <Nav.Link href="/activities">All Activities</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <button className='logout-button' onClick={(e)=> handleLogout(e)}>Logout</button>
