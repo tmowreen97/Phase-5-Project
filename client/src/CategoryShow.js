@@ -1,9 +1,9 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
 import { useState } from 'react';
-import { useAddExperience } from './mutations/creatingMutations';
+import { useAddExperience, useEditExperience, useDeleteExperience } from './mutations/creatingMutations';
 
-function CategoryShow({categories, user, handleEditExperience}){
+function CategoryShow({categories, user}){
 
   //to handle edit experience PATCH request
   
@@ -27,7 +27,7 @@ function CategoryShow({categories, user, handleEditExperience}){
           <h4 className='category-description-title'>Description:</h4>
           <h5 className='description'>{category.description}</h5>
           <CategoryActivities category={category}/>
-          <CategoryExperiences category={category} user={user} handleEditExperience={handleEditExperience}/>
+          <CategoryExperiences category={category} user={user}/>
         </div>
       )
     })
@@ -50,35 +50,29 @@ const CategoryActivities = ({category}) => {
   )
 }
 
-const CategoryExperiences = ({category, user, handleEditExperience}) => {
+const CategoryExperiences = ({category, user}) => {
   const [showPopUp, setShowPopUp] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showAddForm, setShowAddForm] = useState(false)
 
   const [experiences, setExperiences] = useState(category.experiences)
+  const {mutate: addExperience} = useAddExperience()
+  const {mutate: editExperience} = useEditExperience()
+  const {mutate: deleteExperience} = useDeleteExperience()
+
   console.log('experiences,', experiences)
   console.log('category', category)
   console.log('user', user)
 
-  function handleEditExperience(e, editComment){
+  function handleEdit(e, editComment){
     e.preventDefault()
     const updatedExperiences = experiences.filter((experience)=> {
       return (experience.id != editComment.id)
     })
-    console.log(updatedExperiences)
-    fetch(`/experiences/${editComment.id}`, {
-      method: 'PATCH',
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(editComment)
-    })
-    .then(resp=> resp.json())
-    .then(data => {
-      setShowPopUp(!showPopUp)
-      updatedExperiences.push(data)
-      setExperiences(updatedExperiences)
-    })
+    updatedExperiences.push(editComment)
+    editExperience(editComment)
+    setExperiences(updatedExperiences)
+    setShowPopUp(!showPopUp)
   }
 
   function handleDelete(e, id){
@@ -86,46 +80,42 @@ const CategoryExperiences = ({category, user, handleEditExperience}) => {
     const updatedExperiences = experiences.filter((experience)=> {
       return (experience.id != id)
     })
-    fetch(`/experiences/${id}`, {
-      method: 'DELETE'
-    })
-    .then(resp=> resp.json)
-    .then(data => {
-      setShowConfirm(!showConfirm)
-      setExperiences(updatedExperiences)
-    })
+    deleteExperience(id)
+    setExperiences(updatedExperiences)
+    setShowConfirm(!showConfirm)
   }
 
-  const {mutate} = useAddExperience()
-
-  function handleAddExperience(e, newExperience){
+  function handleAdd(e, newExperience){
     e.preventDefault()
-    console.log(newExperience)
     const updatedExperiences = [...experiences]
-    console.log('updated', updatedExperiences)
     const experience = {
       comment: newExperience,
       user_id: user.id,
-      category_id: category.id
+      category_id: category.id,
+      username: user.username
     }
-    mutate(experience)
-    window.location.reload();
+    updatedExperiences.push(experience)
+    //calls useMutation function
+    addExperience(experience)
+    //updates state values
+    setExperiences(updatedExperiences)
+    alert('You just added an experience!')
+    window.location.reload()
+    //hides add experience form
     setShowAddForm(!showAddForm)
-    
-
   }
   return(
     <div className='category-experiences'>
       <h4 className='experiences-title'>Experiences:</h4>
       <button className='add-button' onClick={() => setShowAddForm(!showAddForm)}>{showAddForm ? 'Close' : 'Add Experience'}</button>
-      {showAddForm && <AddForm handleAddExperience={handleAddExperience}/>}
+      {showAddForm && <AddForm handleAdd={handleAdd}/>}
       {experiences.map((experience)=>{
         return(
           <div className='experience-list-section'>
             <li key={experience.id} className='experience-list-item'>{experience.comment} -@{experience.username}</li>
             {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? 'Close' : '✎'}</button> : ''}
             {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showConfirm ? '' : '🗑'}</button> : ''}
-            {showPopUp && (experience.username == user.username) ? <PopUpEditForm setShowPopUp={setShowPopUp} comment={experience} handleEditExperience={handleEditExperience} setExperiences={setExperiences} experiences={experiences}/> : ''}
+            {showPopUp && (experience.username == user.username) ? <PopUpEditForm comment={experience} handleEdit={handleEdit}/> : ''}
             {showConfirm && (experience.username == user.username) ?  <ConfirmDeleteForm setShowConfirm={setShowConfirm} handleDelete={handleDelete} id={experience.id}/> : ''}
           </div>
         )
@@ -137,7 +127,7 @@ const CategoryExperiences = ({category, user, handleEditExperience}) => {
   )
 }
 
-const PopUpEditForm= ({comment, handleEditExperience, setExperiences, experiences, setShowPopUp}) => {
+const PopUpEditForm= ({comment, handleEdit}) => {
   const [editComment, setEditComment] = useState(comment)
 
   return(
@@ -152,12 +142,13 @@ const PopUpEditForm= ({comment, handleEditExperience, setExperiences, experience
         })
       }}
       />
-      <button className='edit-button' type='submit' onClick={(e)=> handleEditExperience(e, editComment)}>Submit</button>
+      <button className='edit-button' type='submit' onClick={(e)=> handleEdit(e, editComment)}>Submit</button>
     </form>
   )
 }
 
 const ConfirmDeleteForm= ({setShowConfirm, handleDelete, id})=> {
+  console.log('in confirm', id)
   return(
     <div className='delete-form'>
       <div className='delete-confirm'>
@@ -170,11 +161,11 @@ const ConfirmDeleteForm= ({setShowConfirm, handleDelete, id})=> {
   )
 }
 
-const AddForm= ({handleAddExperience}) => {
+const AddForm= ({handleAdd}) => {
   const [newExperience, setNewExperience] = useState('')
   return(
     <div className='add-form'>
-      <form onSubmit={(e)=> handleAddExperience(e, newExperience)}>
+      <form onSubmit={(e)=> handleAdd(e, newExperience)}>
         <input
           type= 'text'
           value={newExperience}
@@ -182,8 +173,6 @@ const AddForm= ({handleAddExperience}) => {
         />
         <button className='submit-add' type='submit'>Submit</button>
       </form>
-      
-
     </div>
   )
   
