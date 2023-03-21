@@ -127,7 +127,7 @@ function App() {
         <Route element={<SignUp setUser={setUser}/>} path="/signup"/>
         {user && <Route element={<Profile user={user} setUser={setUser}/>} path="/profile"/>}
         {user && category_query && <Route element={<Categories categories={category_query}/>} path="/categories"/>}
-        {user && <Route element={<CategoryShow categories={category_query} user={user} />} path="/categories/:id"/>}
+        {user && category_query && <Route element={<CategoryShow categories={category_query} user={user} />} path="/categories/:id"/>}
         {user && activities && <Route element={<Activities activities={activities.flat()}/>} path="/activities"/>}
         <Route element={<Home user={user}/>} exact path="/"/>
       </Routes>

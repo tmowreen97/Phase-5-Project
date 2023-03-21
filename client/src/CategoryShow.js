@@ -1,6 +1,7 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
 import { useState } from 'react';
+import { useAddExperience } from './mutations/creatingMutations';
 
 function CategoryShow({categories, user, handleEditExperience}){
 
@@ -95,27 +96,20 @@ const CategoryExperiences = ({category, user, handleEditExperience}) => {
     })
   }
 
+  const {mutate} = useAddExperience()
+
   function handleAddExperience(e, newExperience){
     e.preventDefault()
     console.log(newExperience)
     const updatedExperiences = [...experiences]
     console.log('updated', updatedExperiences)
-    fetch('/experiences', {
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify({
-        comment: newExperience,
-        user_id: user.id,
-        category_id: category.id
-      })
-    })
-    .then(resp=> resp.json())
-    .then(data => {
-      updatedExperiences.push(data)
-      setExperiences(updatedExperiences)
-    })
+    const experience = {
+      comment: newExperience,
+      user_id: user.id,
+      category_id: category.id
+    }
+    mutate(experience)
+    window.location.reload();
     setShowAddForm(!showAddForm)
     
 
