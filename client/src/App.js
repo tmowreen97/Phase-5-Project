@@ -24,8 +24,10 @@ function App() {
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
   const [query, setQuery]= useState([])
+  const activities=[]
 
-  //This useQuery currently working for categories and category show page
+  //This useQuery currently working for categories and category show page AND activities
+  //Able to store activities in array activities above
   const {
     status: categories_status,
     error: categories_error,
@@ -35,13 +37,27 @@ function App() {
       fetch('/categories')
       .then(resp => resp.json())
     )
+  }, {
+    select: (data) => {
+      const act= []
+      data.map((dat)=> {
+        dat.activities.map((acti)=> {
+          act.push(acti)
+        })
+      })
+      activities.push(act)
+      return data
+    }
   })
+
 
   // const [category, setCategory] = useState(categories_query.data)
   // console.log('query', categories_query.data)
-  console.log('query', category_query)
-  console.log('status', categories_status)
-  console.log('error', categories_error)
+
+  // console.log('activities_query', activities_query)
+
+  // console.log('status', categories_status)
+  // console.log('error', categories_error)
 
 
   // console.log('just console.log', store.getState())
@@ -53,16 +69,31 @@ function App() {
 
   const [user, setUser]= useState(null)
   const [isLogged, setIsLogged] = useState(false)
-  const [categories, setCategories]= useState([])
-  const [activities, setActivities] = useState([])
 
-  const user_query = useQuery('me', () => {
-    return(
-      fetch('/me')
-      .then(resp => resp.json())
-    )
-  })
-  console.log('user query', user_query.data)
+  // **USER USEQUERY NOT WORKING 
+
+  // const {
+  //   status: user_status,
+  //   error: user_error,
+  //   data: user_query
+  // } = useQuery("me", () => {
+  //   fetch("/me")
+  //   .then(resp => {
+  //     resp.json()
+  //   })
+  // }, {
+  //   select: (data)=> {
+  //     if (data.ok){
+  //       console.log(data, 'ok')
+  //     }
+  //     else {
+  //       console.log(data, 'not ok')
+  //     }
+  //   }
+  // })
+  // console.log('user query boolean, true', !user_query)
+  // console.log('user status', user_status)
+
 
 
   //keeps user logged in
@@ -79,24 +110,9 @@ function App() {
   }, [isLogged])
 
   console.log('isLogged', isLogged)
-
-  //gets all the categories
-  useEffect(()=> {
-    fetch("/categories").then(
-      r=>r.json()
-      ).then((categories) => {
-        const activities = []
-        categories.map((category)=> {
-          activities.push(category.activities)
-        })
-        setCategories(categories)
-        setActivities(activities.flat())
-      })
-  },[isLogged])
+  console.log('state',query)
 
 
-  console.log('cat',categories)
-  console.log('activities', activities)
   //handle edit experience comment, executed in CategoryShow PopupEditForm comp.
 
 
@@ -112,7 +128,7 @@ function App() {
         {user && <Route element={<Profile user={user} setUser={setUser}/>} path="/profile"/>}
         {user && category_query && <Route element={<Categories categories={category_query}/>} path="/categories"/>}
         {user && <Route element={<CategoryShow categories={category_query} user={user} />} path="/categories/:id"/>}
-        {user && <Route element={<Activities activities={activities}/>} path="/activities"/>}
+        {user && activities && <Route element={<Activities activities={activities.flat()}/>} path="/activities"/>}
         <Route element={<Home user={user}/>} exact path="/"/>
       </Routes>
       </div>

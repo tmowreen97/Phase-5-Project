@@ -21,7 +21,8 @@ function Profile({user, setUser}){
         <p className="profile-bio">{user.bio}</p>
         <div className="user-experiences">
           <h4>Your Experiences:</h4>
-          {user.experiences.map((experience)=> {
+          { user.experiences.length==0 ? <p>You have no experiences yet ˙◠˙. Get your self-care on!</p> :
+          user.experiences.map((experience)=> {
             return( <li>{experience.comment} -{experience.category}</li>)
           })}
         </div>

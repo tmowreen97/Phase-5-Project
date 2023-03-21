@@ -2,6 +2,7 @@
 .home-title{
   padding: 80px;
   padding-top:225px;
+  padding-left: 90px;
   font-family: 'Abril Fatface';
   font-size: 150px;
   font-style: italic;
@@ -15,7 +16,7 @@
 
 .home-title-description{
   font-size:25px;
-  padding-left: 80px;
+  padding-left: 100px;
   padding-bottom: 370px;
 }
 
@@ -34,7 +35,7 @@ h2{
 
 .what-is-self-care-image{
   position: absolute;
-  left: 30px;
+  left: 70px;
   top: 1150px;
   max-height: 60%;
 
@@ -42,8 +43,8 @@ h2{
 
 .what-is{
   position: absolute;
-  left: 600px;
-  right: 50px;
+  left: 750px;
+  /* right: 30px; */
   top:1300px;
   margin-right: 200px;
 
@@ -51,29 +52,32 @@ h2{
 
 .what-is-self-care{
   margin-bottom: 200px;
+
 }
 
 .why-self-care-image{
   position: absolute;
   top: 1950px;
-  max-height: 50%;
+  max-height:40%;
+  max-width: 50%;
   right: 200px;
 }
 
 .why{
   position: absolute;
   top: 2050px;
-  margin-right:600px;
-  left: 130px;
+  margin-right:700px;
+  left: 150px;
 
 }
 
 .why-self{
   position: absolute;
   top: 2800px;
-  left: 130px;
+  left: 180px;
   margin-right: 500px;
   padding-bottom: 400px;
+  align-items: center;
 }
 
 /* CATEGORY SHOW */
@@ -101,6 +105,10 @@ h2{
 
 .activities-title, .category-description-title{
   padding-bottom: 10px;
+}
+
+.category-experiences{
+  margin-top: 50px;
 }
 
 
@@ -266,7 +274,13 @@ h2{
   background-color: white;
   padding: 5px;
   margin: 2px;
+  margin-top: 10px;
   margin-bottom: 8px;
+}
+
+.submit-add:hover, .add-button:hover{
+  background-color: #686868;
+  color:white;
 }
 
 /* PROFILE */
@@ -302,8 +316,14 @@ h2{
   margin-right: 30% ;
 }
 
+.activities-page{
+  background-color: #ECE8F4;
+  padding-bottom:100%;
+}
+
 .all-activities{
   background-color: #ECE8F4;
+  height: 100%;
 }
 
 .activities{
@@ -317,4 +337,14 @@ h2{
 .all-activities-list{
   padding: 5px;
   margin-left:15px ;
+}
+
+.search-button{
+  background-color: white;
+}
+
+.search-bar{
+  display: flex;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }

@@ -22,7 +22,7 @@ function Home({user}){
         
       </div>
       <div className="why-self-care">
-        <img className='why-self-care-image' src='https://i.pinimg.com/564x/67/e9/4c/67e94ca9dc96ffbc3e7e10609032300e.jpg'/>
+        <img className='why-self-care-image' src='https://cdn.shopify.com/s/files/1/0251/5984/products/when-things-change-inside-you-things-change-around-you-shirt-1.png?v=1651713256'/>
         <div className="why">
           <h2>Why self-care?</h2>
           <p>Since 2020, post-pandemic, depression and mental illness has more than tripled in American adults. Pre-pandemic about 8% of American adults experienced depression, while now its more than 30%. That means more than 50 million Americans are affected.</p>
