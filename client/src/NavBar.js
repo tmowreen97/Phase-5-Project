@@ -3,25 +3,66 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { useSelector, useDispatch } from 'react-redux';
+import { useContext } from 'react';
+import { UserContext } from './App';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-function Navigation({setUser, setIsLogged}) {
 
-  const dispatch = useDispatch()
+
+function Navigation({user}) {
+  const {setUser, setIsLogged} = useContext(UserContext)
+  console.log('in nav bar', user)
 
   const navigate = useNavigate()
-  function handleLogout(e){
-    e.preventDefault()
+
+  // const{
+  //   status,
+  //   error,
+  //   data
+  // } = useQuery("logout", async () => {
+  //   const response = await fetch("/logout", {
+  //     method: 'DELETE'
+  //   })
+  //   if (!response.ok) {
+  //     throw new Error('Logout Error')
+  //   }
+  //   return response.json()
+  // })
+
+  const queryClient = useQueryClient()
+
+
+  // const deletePost = useMutation(()=> {
+  //   fetch("/logout", {
+  //     method: 'DELETE'
+  //   })
+  //   queryClient.invalidateQueries()
+  //   navigate("/")
+  // })
+
+  function handleLogout(){
     fetch("/logout", {
       method: "DELETE"
     })
     .then((r)=>{
       if(r.ok){
         setUser(null)
+        setIsLogged(false)
         navigate("/")
       }
     })
   }
+
+  // useQuery({
+  //   queryKey: ['todos', todoId],
+  //   queryFn: async () => {
+  //     const response = await fetch('/todos/' + todoId)
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok')
+  //     }
+  //     return response.json()
+  //   },
+  // })
 
   return (
     <Navbar bg="light" expand="lg">
@@ -36,7 +77,7 @@ function Navigation({setUser, setIsLogged}) {
             <Nav.Link href="/activities">All Activities</Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        <button className='logout-button' onClick={(e)=> handleLogout(e)}>Logout</button>
+        <button className='logout-button' onClick={()=> handleLogout()}>Logout</button>
       </Container>
     </Navbar>
   );

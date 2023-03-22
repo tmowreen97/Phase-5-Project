@@ -15,12 +15,13 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
   #profile
   def show
-    # byebug
     user = User.find_by(id: session[:user_id])
     if user
+      
       render json: user, status: :ok
     else
-      raise ActiveRecord::RecordInvalid
+      
+      render json: {error: "Not found"}, status: :not_found
     end
   end
 

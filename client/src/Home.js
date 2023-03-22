@@ -2,6 +2,7 @@ import react from "react";
 import { useNavigate } from "react-router-dom";
 
 function Home({user}){
+  console.log('in home', user)
   const navigate = useNavigate()
   function handleClick(e){
     return navigate("/login")

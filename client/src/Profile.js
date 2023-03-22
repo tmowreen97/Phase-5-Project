@@ -1,15 +1,11 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 
 
-function Profile({user, setUser}){
-  console.log(user)
-  const userRedux = useSelector(state => state.user)
-  const dispatch = useDispatch()
-  console.log('userRedux in Profile', userRedux)
 
+function Profile({user}){
+
+  console.log('in profile', user)
  return(
     <div className="profile">
       <img src={'https://media.istockphoto.com/id/1218481548/vector/cute-cat-waving-paw-cartoon-vector-illustration.jpg?s=170667a&w=0&k=20&c=yw-bgn7EaMdGFE6AuKz-FS76Oa7G2HW5JBpEvYpJYd8='} className="welcome-image"/>
@@ -27,7 +23,6 @@ function Profile({user, setUser}){
           })}
         </div>
       </div>
-      <button onClick={()=> dispatch({type:'test'})}>test</button>
     </div>
   )
 }

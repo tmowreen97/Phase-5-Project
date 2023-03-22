@@ -1,7 +1,7 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
 import { useState } from 'react';
-import { useAddExperience, useEditExperience, useDeleteExperience } from './mutations/creatingMutations';
+import { useAddExperience, useEditExperience, useDeleteExperience } from './mutations/experienceMutations';
 
 function CategoryShow({categories, user}){
 
@@ -15,9 +15,6 @@ function CategoryShow({categories, user}){
       cat.id == id
     )
   })
-  console.log(currentCategory)
-
-
 
   return(
     currentCategory.map((category)=> {
@@ -38,7 +35,7 @@ export default CategoryShow;
 
 const CategoryActivities = ({category}) => {
   return(
-    <div>
+    <div className='category-activities'>
           <h4 className='activities-title'>Activities:</h4>
           {category.activities.map((activity)=> {
             return(
@@ -170,6 +167,7 @@ const AddForm= ({handleAdd}) => {
           type= 'text'
           value={newExperience}
           onChange={(e)=> setNewExperience(e.target.value)}
+          className='add-input'
         />
         <button className='submit-add' type='submit'>Submit</button>
       </form>

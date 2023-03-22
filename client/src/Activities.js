@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 function Activities({activities}){
   const [search, setSearch] = useState('')
-  // console.log(activities.filter((activity)=> activity.name.includes('run') ))
 
   console.log('act',activities)
   return(
