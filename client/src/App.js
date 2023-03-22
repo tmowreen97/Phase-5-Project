@@ -32,6 +32,7 @@ function App() {
       .then(resp => resp.json())
     )
   }, {
+    retryOnMount: 'always',
     select: (data) => {
       const act= []
       data.map((dat)=> {
@@ -105,7 +106,7 @@ function App() {
         {user && <Route element={<Profile user={user}/>} path="/profile"/>}
         {user && category_query && <Route element={<Categories categories={category_query}/>} path="/categories"/>}
         {user && category_query && <Route element={<CategoryShow categories={category_query} user={user} />} path="/categories/:id"/>}
-        {user && activities && <Route element={<Activities activities={activities.flat()}/>} path="/activities"/>}
+        {user && category_query && <Route element={<Activities activities={activities.flat()}/>} path="/activities"/>}
         <Route element={<Home user={user}/>} exact path="/"/>
       </Routes>
       </div>

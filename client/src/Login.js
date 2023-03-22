@@ -22,7 +22,6 @@ function Login(props){
     })
     .then((r)=> {
       if (r.ok) {
-        // debugger
         r.json().then((user)=> {
           props.setUser(user)
           setUserHash({
@@ -33,7 +32,6 @@ function Login(props){
           navigate("/profile")
         })
       } else {
-        // debugger
         r.json().then((err)=> {
           setErrors(err.error)
           setUserHash({
@@ -44,8 +42,6 @@ function Login(props){
       }
     })
   }
-
-
 
   return(
     <div className="login">

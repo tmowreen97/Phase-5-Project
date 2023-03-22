@@ -2,6 +2,7 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import { useState } from 'react';
 import { useAddExperience, useEditExperience, useDeleteExperience } from './mutations/experienceMutations';
+import { useMutation, mutate } from 'react-query';
 
 function CategoryShow({categories, user}){
 
@@ -82,6 +83,22 @@ const CategoryExperiences = ({category, user}) => {
     setShowConfirm(!showConfirm)
   }
 
+  const mutationFn = (experience) => {
+    fetch(`/experiences/${experience.id}`, {
+      method: 'PATCH',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(experience)
+    })
+    .then(resp => resp.json())
+  }
+
+  const addMutationData = useMutation(mutationFn, {
+    onError: (error) => {return(error)}
+  })
+
+
   function handleAdd(e, newExperience){
     e.preventDefault()
     const updatedExperiences = [...experiences]
@@ -91,13 +108,18 @@ const CategoryExperiences = ({category, user}) => {
       category_id: category.id,
       username: user.username
     }
+    
     updatedExperiences.push(experience)
     //calls useMutation function
-    addExperience(experience)
+    // addExperience(experience)
+    mutate({addMutationData}, {
+      onError: (error) => console.log(error)
+    })
     //updates state values
     setExperiences(updatedExperiences)
-    alert('You just added an experience!')
-    window.location.reload()
+    console.log('error',addExperience.error)
+    // alert('You just added an experience!')
+    // window.location.reload()
     //hides add experience form
     setShowAddForm(!showAddForm)
   }
@@ -114,6 +136,9 @@ const CategoryExperiences = ({category, user}) => {
             {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showConfirm ? '' : '🗑'}</button> : ''}
             {showPopUp && (experience.username == user.username) ? <PopUpEditForm comment={experience} handleEdit={handleEdit}/> : ''}
             {showConfirm && (experience.username == user.username) ?  <ConfirmDeleteForm setShowConfirm={setShowConfirm} handleDelete={handleDelete} id={experience.id}/> : ''}
+            {
+              addExperience.isError && <p>{addExperience.error.message}</p>
+            }
           </div>
         )
       })

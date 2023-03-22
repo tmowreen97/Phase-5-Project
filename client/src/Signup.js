@@ -42,8 +42,9 @@ function SignUp({setUser, setIsLogged}){
             password_confirmation: "",
             bio: ""
           })
+          setIsLogged(false)
         })
-        setIsLogged(false)
+        
       }
     })
   }

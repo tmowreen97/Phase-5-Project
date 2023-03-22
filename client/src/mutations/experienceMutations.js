@@ -10,7 +10,14 @@ const addExperience = (experience)=> {
       },
       body: JSON.stringify(experience)
     })
-    .then(resp=> resp.json())
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      console.log(res.status)
+
+      throw new Error("Error creating experience")
+    })
   )
 }
 
@@ -37,7 +44,9 @@ const deleteExperience = (experience_id) => {
 }
 
 export const useAddExperience = ()=> {
-  return useMutation(addExperience)
+  return useMutation(addExperience, {
+    onError: (error) => {return(error)}
+  })
 }
 
 export const useEditExperience = () =>{
