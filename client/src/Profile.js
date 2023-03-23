@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "./App";
 
 
 
 
-function Profile({user}){
+function Profile(){
+  const navigate = useNavigate()
+  const {user} = useContext(AppContext)
 
   console.log('in profile', user)
  return(
@@ -16,10 +20,10 @@ function Profile({user}){
         </div>
         <p className="profile-bio">{user.bio}</p>
         <div className="user-experiences">
-          <h4>Your Experiences:</h4>
+          <h4 className="user-experiences-title">Your Experiences:</h4>
           { user.experiences.length==0 ? <p>You have no experiences yet ˙◠˙. Get your self-care on!</p> :
           user.experiences.map((experience)=> {
-            return( <li>{experience.comment} -{experience.category}</li>)
+            return( <li title="Click to navigate to category" onClick={()=> navigate(`/categories/${experience.category_id}`)}className="user-experiences-list">{experience.comment} -{experience.category}</li>)
           })}
         </div>
       </div>

@@ -102,48 +102,76 @@ padding-bottom: 80px;
 
 }
 
-
-.all-activities-desc{
-  padding-left: 80px;
-  font-size: 20px;
-}
-
-.all-activities-list{
-  padding: 5px;
-  margin-left:100px ;
-  font-size: 18px;
-}
 /* CATEGORY SHOW */
 
 .category-show{
   padding: 100px;
-  padding-bottom: 100%;
   background-color: #FFF0F5;
+  height: 100%;
 }
 
 .category-title {
-  padding-bottom: 40px;
+  padding: 50px;
+  font-size: 70px;
+  padding-bottom: 80px;
 }
 
-.description{
-  padding-bottom: 40px;
+.category-description{
+  padding-left: 80px;
+  padding-bottom: 80px;
+  font-size: 20px;
+  margin-right: 150px;
 }
+
+.category-activities{
+  padding-left: 80px;
+  padding-bottom: 80px;
+}
+
 
 .activity-list-item{
   list-style-type: '🖤 ';
   list-style-position: outside;
   padding-left: 20px;
   padding-bottom: 10px;
+  font-size: 20px;
 }
 
 .activities-title, .category-description-title{
   padding-bottom: 10px;
 }
 
-.category-experiences{
-  margin-top: 50px;
+/* CATEGORY SHOW EXPERIENCES */
+.edit-experience-button, .delete-experience-button, .submit-add, .edit-button{
+  border: none;
+  background-color: white;
+  margin: 4px;
+  font-size: 18px;
 }
 
+.experience-list-item {
+  display: inline-flex;
+}
+
+.add-input{
+  margin-bottom: 2px;
+  margin-right: 5px;
+  margin-top: 8px;
+  width: 40%;
+  padding: 5px;
+}
+
+.category-experiences{
+  margin-top: 50px;
+  padding-left: 80px;
+}
+
+.experience-list-item{
+  font-size: 20px;
+  margin-right: 8px;
+  padding-bottom: 8px;
+  padding-left: 2px;
+}
 
 /* LOGIN */
 /* from home page */
@@ -210,7 +238,10 @@ padding-bottom: 80px;
 }
 
 .edit-input{
-  width: 20%;
+  width: 40%;
+    margin-bottom: 2px;
+    margin-right: 5px;
+    padding: 5px;
 }
 
 .signup-input, .login-input{
@@ -248,17 +279,6 @@ padding-bottom: 80px;
   width:85%
 }
 
-/* CATEGORY SHOW EXPERIENCES */
-.experience-button{
-  border: none;
-  background-color: white;
-  margin: 2px;
-
-}
-
-.experience-list-item, .edit-experience-button {
-  display: inline-flex;
-}
 
 
 
@@ -298,14 +318,14 @@ padding-bottom: 80px;
   justify-content: center;
 
 }
-
+/* 
 .submit-add, .edit-button{
   border: none;
   background-color: white;
   padding: 5px;
   margin:2px;
-  font-size: 90%;
-}
+  font-size: 14px;
+} */
 
 .add-button{
   border: none;
@@ -313,7 +333,8 @@ padding-bottom: 80px;
   padding: 5px;
   margin: 2px;
   margin-top: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 15px;
+  font-size: 18px;
 }
 
 .submit-add:hover, .add-button:hover{
@@ -332,12 +353,13 @@ padding-bottom: 80px;
   position:absolute;
   top:8%;
   max-height: 30%;
+  left:130px;
 }
 
 .user-info{
   position: absolute;
   top:30%;
-  margin-left: 20px;
+  margin-left: 50px;
   margin-top: 10px;
 }
 
@@ -347,12 +369,40 @@ padding-bottom: 80px;
 
 .welcome-username{
   font-style: italic;
-  margin-left: 10px;
+  margin-left: 12px;
+  font-size: 50px;;
+
 }
 
 .profile-bio{
-  margin-right: 30% ;
+  padding-top:40px ;
+  margin-right: 40% ;
+  font-size: 18px;
 }
+
+.welcome{
+  font-size: 50px;;
+}
+
+.user-experiences{
+  font-size: 18px;
+  
+}
+.user-experiences-list{
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.user-experiences-list:hover{
+  color:#FF7F50
+}
+
+.user-experiences-title{
+  margin-top: 70px;
+}
+
+
+
 
 /* ACTIVITIES */
 
@@ -379,6 +429,7 @@ padding-bottom: 80px;
   padding: 5px;
   margin-left:100px ;
   font-size: 18px;
+  margin-right: 80px;
 }
 
 .search-button{

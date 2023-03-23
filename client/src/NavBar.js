@@ -4,13 +4,13 @@ import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useContext } from 'react';
-import { UserContext } from './App';
+import { AppContext } from './App';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 
 
-function Navigation({user}) {
-  const {setUser, setIsLogged} = useContext(UserContext)
+function Navigation() {
+  const {setUser, setIsLogged, user} = useContext(AppContext)
   console.log('in nav bar', user)
 
   const navigate = useNavigate()

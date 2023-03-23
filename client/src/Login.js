@@ -1,8 +1,11 @@
-import react, { useState } from "react";
+import react, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "./App";
 
 
-function Login(props){
+function Login(){
+
+  const {setUser, setIsLogged, user} = useContext(AppContext)
 
   const navigate= useNavigate()
   const [userHash, setUserHash] = useState({
@@ -23,12 +26,12 @@ function Login(props){
     .then((r)=> {
       if (r.ok) {
         r.json().then((user)=> {
-          props.setUser(user)
+          setUser(user)
           setUserHash({
             username: "",
             password: ""
           })
-          props.setIsLogged(true)
+          setIsLogged(true)
           navigate("/profile")
         })
       } else {

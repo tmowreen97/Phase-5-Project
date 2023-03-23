@@ -1,9 +1,10 @@
-import react from "react";
+import react, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "./App";
 
-function Home({user}){
-  console.log('in home', user)
+function Home(){
   const navigate = useNavigate()
+  const {user} = useContext(AppContext)
   function handleClick(e){
     return navigate("/login")
   }

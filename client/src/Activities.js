@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Select from 'react-select';
+import { AppContext } from "./App";
 
-function Activities({activities}){
+function Activities(){
+  const {activities} = useContext(AppContext)
   const [search, setSearch] = useState('')
 
   //Ascending Z-A

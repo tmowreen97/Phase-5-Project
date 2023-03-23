@@ -1,8 +1,11 @@
-import react, { useState } from "react";
+import react, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "./App";
 
-function SignUp({setUser, setIsLogged}){
+function SignUp(){
+
   const navigate= useNavigate()
+  const {setUser, setIsLogged, user} = useContext(AppContext)
   const [userHash, setUserHash]= useState({
     username: "",
     password: "",

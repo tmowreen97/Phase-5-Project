@@ -14,11 +14,11 @@ import { useQuery } from 'react-query';
 // useQuery is the hook for all data fetching needs
 // takes two arguments, first one is a key second is a function that returns a promise
 
-export const UserContext = createContext()
+export const AppContext = createContext()
 function App() {
 
   // const [query, setQuery]= useState([])
-  const activities=[]
+  let activities
 
   //This useQuery currently working for categories and category show page AND activities
   //Able to store activities in array activities above
@@ -34,19 +34,23 @@ function App() {
   }, {
     retryOnMount: 'always',
     select: (data) => {
-      const act= []
-      data.map((dat)=> {
+      console.log('data first', data)
+      const act = data.map((dat)=> {
         return(
-          dat.activities.map((acti)=> {
-          return (act.push(acti))
+          dat.activities.flat().map((acti)=> {
+          return (acti)
         })
         )
       })
-      activities.push(act)
+      activities=[...act.flat()]
+      console.log('act in query', activities)
+      
       return data
     }
   })
   const [isLogged, setIsLogged] = useState(false)
+
+  console.log('with let', activities)
 
 
   // **USER USEQUERY NOT WORKING 
@@ -97,20 +101,20 @@ function App() {
 
   console.log('isLogged', isLogged)
   return (
-    <UserContext.Provider value={{user, setUser, setIsLogged}}>
+    <AppContext.Provider value={{user, setUser, setIsLogged, activities, category_query}}>
       <div className="app">
-      {user && <Navigation user={user} setIsLogged={setIsLogged} setUser={setUser}/>}
+      {user && <Navigation/>}
       <Routes>
-        <Route element={<Login setIsLogged={setIsLogged} setUser={setUser}/>} path="/login"/>
-        <Route element={<SignUp setUser={setUser} setIsLogged={setIsLogged}/>} path="/signup"/>
-        {user && <Route element={<Profile user={user}/>} path="/profile"/>}
-        {user && category_query && <Route element={<Categories categories={category_query}/>} path="/categories"/>}
-        {user && category_query && <Route element={<CategoryShow categories={category_query} user={user} />} path="/categories/:id"/>}
-        {user && category_query && <Route element={<Activities activities={activities.flat()}/>} path="/activities"/>}
-        <Route element={<Home user={user}/>} exact path="/"/>
+        <Route element={<Login/>} path="/login"/>
+        <Route element={<SignUp/>} path="/signup"/>
+        {user && <Route element={<Profile/>} path="/profile"/>}
+        {user && category_query && <Route element={<Categories/>} path="/categories"/>}
+        {user && category_query && <Route element={<CategoryShow/>} path="/categories/:id"/>}
+        {user && category_query && <Route element={<Activities/>} path="/activities"/>}
+        <Route element={<Home/>} exact path="/"/>
       </Routes>
       </div>
-      </UserContext.Provider>
+      </AppContext.Provider>
    
   );
 }

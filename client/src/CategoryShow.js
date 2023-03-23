@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {useParams} from 'react-router-dom';
 import { useState } from 'react';
 import { useAddExperience, useEditExperience, useDeleteExperience } from './mutations/experienceMutations';
 import { useMutation, mutate } from 'react-query';
+import { AppContext } from './App';
 
-function CategoryShow({categories, user}){
+function CategoryShow(){
+
+  const {user, category_query} = useContext(AppContext)
 
   //to handle edit experience PATCH request
   
 
   let { id } = useParams()
   console.log({id})
-  const currentCategory = categories.filter((cat)=> {
+  const currentCategory = category_query.filter((category)=> {
     return (
-      cat.id == id
+      category.id == id
     )
   })
 
@@ -22,8 +25,7 @@ function CategoryShow({categories, user}){
       return(
         <div key={category.id} className='category-show'>
           <h1 className='category-title'>{category.name}</h1>
-          <h4 className='category-description-title'>Description:</h4>
-          <h5 className='description'>{category.description}</h5>
+          <p className='category-description'>{category.description}</p>
           <CategoryActivities category={category}/>
           <CategoryExperiences category={category} user={user}/>
         </div>
@@ -126,14 +128,14 @@ const CategoryExperiences = ({category, user}) => {
   return(
     <div className='category-experiences'>
       <h4 className='experiences-title'>Experiences:</h4>
-      <button className='add-button' onClick={() => setShowAddForm(!showAddForm)}>{showAddForm ? 'Close' : 'Add Experience'}</button>
       {showAddForm && <AddForm handleAdd={handleAdd}/>}
+      <button className='add-button' onClick={() => setShowAddForm(!showAddForm)}>{showAddForm ? 'Close' : 'Add Experience'}</button>
       {experiences.map((experience)=>{
         return(
           <div className='experience-list-section'>
             <li key={experience.id} className='experience-list-item'>{experience.comment} -@{experience.username}</li>
-            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? 'Close' : '✎'}</button> : ''}
-            {(experience.username == user.username) ? <button className='experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showConfirm ? '' : '🗑'}</button> : ''}
+            {(experience.username == user.username) ? <button className='edit-experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? 'Close' : '✎'}</button> : ''}
+            {(experience.username == user.username) ? <button className='delete-experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showConfirm ? '' : '🗑'}</button> : ''}
             {showPopUp && (experience.username == user.username) ? <PopUpEditForm comment={experience} handleEdit={handleEdit}/> : ''}
             {showConfirm && (experience.username == user.username) ?  <ConfirmDeleteForm setShowConfirm={setShowConfirm} handleDelete={handleDelete} id={experience.id}/> : ''}
             {
