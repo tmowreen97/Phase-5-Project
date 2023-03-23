@@ -162,7 +162,6 @@ function Activities({activities}){
   // console.log('ascending', ascending)
 
   return(
-    <div className="activities-page">
     <div className="all-activities">
       <div className="activities">
       <h1 className="all-activities-title" >All Activities</h1>
@@ -204,7 +203,6 @@ function Activities({activities}){
       </div>
            
     </div>  
-    </div>
     
 
   )

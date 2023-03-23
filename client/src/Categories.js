@@ -7,17 +7,13 @@ import Row from 'react-bootstrap/Row';
 
 function Categories({categories}){
   const navigate = useNavigate()
-  // const [categories, setCategories]= useState([])
-  // useEffect(()=> {
-  //   fetch("/categories").then(r=>r.json()).then(categories => setCategories(categories))
-  // },[])
-  console.log(categories)
-
-  // categories.map((category)=> {
-  //   console.log(category.name)
-  // })
 
   return(
+    <div className="all-categories">
+      <div className="categories">
+
+      <h1 className="categories-title">Categories</h1>
+      <p className="categories-desc">Did you know there are 8 forms of self-care? Click on any category to learn more!</p>
     <div className="grid">
       {categories && categories.map((category)=> {
         return(
@@ -29,6 +25,8 @@ function Categories({categories}){
         </Card>
         )
       })}
+    </div>
+    </div>
     </div>
   )
 }
