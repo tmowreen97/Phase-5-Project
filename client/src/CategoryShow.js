@@ -64,6 +64,8 @@ const CategoryExperiences = ({category, user}) => {
   console.log('category', category)
   console.log('user', user)
 
+  //HANDLE FUNCTIONS
+  //EDIT
   function handleEdit(e, editComment){
     e.preventDefault()
     const updatedExperiences = experiences.filter((experience)=> {
@@ -75,6 +77,7 @@ const CategoryExperiences = ({category, user}) => {
     setShowPopUp(!showPopUp)
   }
 
+  //DELETE
   function handleDelete(e, id){
     e.preventDefault()
     const updatedExperiences = experiences.filter((experience)=> {
@@ -84,23 +87,23 @@ const CategoryExperiences = ({category, user}) => {
     setExperiences(updatedExperiences)
     setShowConfirm(!showConfirm)
   }
+  //WORKING ON GETTING ERROR MESSAGES FROM USEMUTATION
+  // const mutationFn = (experience) => {
+  //   fetch(`/experiences/${experience.id}`, {
+  //     method: 'PATCH',
+  //     headers:{
+  //       'Content-Type':'application/json'
+  //     },
+  //     body: JSON.stringify(experience)
+  //   })
+  //   .then(resp => resp.json())
+  // }
 
-  const mutationFn = (experience) => {
-    fetch(`/experiences/${experience.id}`, {
-      method: 'PATCH',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify(experience)
-    })
-    .then(resp => resp.json())
-  }
+  // const addMutationData = useMutation(mutationFn, {
+  //   onError: (error) => {return(error)}
+  // })
 
-  const addMutationData = useMutation(mutationFn, {
-    onError: (error) => {return(error)}
-  })
-
-
+  //ADD
   function handleAdd(e, newExperience){
     e.preventDefault()
     const updatedExperiences = [...experiences]
@@ -112,18 +115,18 @@ const CategoryExperiences = ({category, user}) => {
     }
     
     updatedExperiences.push(experience)
-    //calls useMutation function
-    // addExperience(experience)
-    mutate({addMutationData}, {
-      onError: (error) => console.log(error)
-    })
+    //calls useMutation function from experienceMutations file
+    addExperience(experience)
+    // mutate({addMutationData})
     //updates state values
     setExperiences(updatedExperiences)
     console.log('error',addExperience.error)
-    // alert('You just added an experience!')
+    alert('You just added an experience!')
     // window.location.reload()
     //hides add experience form
     setShowAddForm(!showAddForm)
+
+    //PROBLEM UPLOADING STATE
   }
   return(
     <div className='category-experiences'>

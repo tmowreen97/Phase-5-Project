@@ -53,6 +53,7 @@ function Navigation() {
     })
   }
 
+  //USE QUERY FORMAT FOR FETCH REQUESTS WITH ERRORS
   // useQuery({
   //   queryKey: ['todos', todoId],
   //   queryFn: async () => {
@@ -71,10 +72,10 @@ function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            {/* <Nav.Link href="/">Home</Nav.Link> */}
             <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link href="/categories">Categories</Nav.Link>
-            <Nav.Link href="/activities">All Activities</Nav.Link>
+            <Nav.Link href="/all-categories">Categories</Nav.Link>
+            <Nav.Link href="/all-activities">All Activities</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <button className='logout-button' onClick={()=> handleLogout()}>Logout</button>

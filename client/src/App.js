@@ -75,7 +75,7 @@ function App() {
 
   // console.log('user status', user_status)
 
-
+  //USEQUERY FORMAT FOR FETCH REQUESTS WITH ERRORS
   // useQuery({
   //   queryKey: ['todos', todoId],
   //   queryFn: async () => {
@@ -108,9 +108,9 @@ function App() {
         <Route element={<Login/>} path="/login"/>
         <Route element={<SignUp/>} path="/signup"/>
         {user && <Route element={<Profile/>} path="/profile"/>}
-        {user && category_query && <Route element={<Categories/>} path="/categories"/>}
-        {user && category_query && <Route element={<CategoryShow/>} path="/categories/:id"/>}
-        {user && category_query && <Route element={<Activities/>} path="/activities"/>}
+        {user && category_query && <Route element={<Categories/>} path="/all-categories"/>}
+        {user && category_query && <Route element={<CategoryShow/>} path="/category/:id"/>}
+        {user && category_query && <Route element={<Activities/>} path="/all-activities"/>}
         <Route element={<Home/>} exact path="/"/>
       </Routes>
       </div>
