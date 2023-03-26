@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import {useParams} from 'react-router-dom';
 import { useState } from 'react';
-import { useAddExperience, useEditExperience, useDeleteExperience } from './mutations/experienceMutations';
-import { useMutation, mutate, useQueryClient } from 'react-query';
+import { useEditExperience, useDeleteExperience } from './mutations/experienceMutations';
+import { useMutation} from 'react-query';
 import { AppContext } from './App';
 import CategoryExperienceList from './CategoryExperienceList';
 import axios from 'axios';
@@ -22,6 +22,8 @@ function CategoryShow(){
     )
   })
 
+  console.log('cat', currentCategory)
+
 
   return(
     currentCategory.map((category)=> {
@@ -31,6 +33,7 @@ function CategoryShow(){
           <p className='category-description'>{category.description}</p>
           <CategoryActivities category={category}/>
           <CategoryExperiences category={category} user={user}/>
+          <CategoryResources category={category} />
         </div>
       )
     })
@@ -38,6 +41,23 @@ function CategoryShow(){
 }
 
 export default CategoryShow;
+
+const CategoryResources = ({category}) => {
+  return(
+    <div className='category-resources'>
+      <h4 className='resources-title'>Resources:</h4>
+      <div className='resource-list'>
+        {category.resources.map((resource)=> {
+          return(
+            <li key={resource.id}>{resource.description}: {resource.url}</li>
+          )
+        })}
+
+      </div>
+
+    </div>
+  )
+}
 
 const CategoryActivities = ({category}) => {
   return(
@@ -167,6 +187,7 @@ const AddForm= ({handleAdd}) => {
       <form onSubmit={(e)=> handleAdd(e, newExperience)}>
         <input
           type= 'text'
+          placeholder='Enter new experience...'
           value={newExperience}
           onChange={(e)=> setNewExperience(e.target.value)}
           className='add-input'
@@ -176,3 +197,4 @@ const AddForm= ({handleAdd}) => {
     </div>
   )
 }
+

@@ -3,6 +3,7 @@ class CategorySerializer < ActiveModel::Serializer
 
   has_many :activities, serializer: CategoryActivitiesSerializer
   has_many :experiences, serializer: CategoryExperienceSerializer
+  has_many :resources, serializer: CategoryResourcesSerializer
 
   def comment
     object.experiences

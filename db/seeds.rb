@@ -44,3 +44,30 @@
 
 #spiritual.activities
 # spiritual.activities.create([{name:"Meditation or breathwork."},{name:"Spending time in nature."},{name:"Going to a place of worship."},{name:"Yoga."},{name:"Mapping out your core values."},{name:"Dedicating time for self-reflection."},{name:"Manifestation."}]);
+
+# physical.resources
+# physical.resources.create([{url: 'https://www.delicious.com.au/recipes/collections/gallery/60-healthy-dinners-you-can-cook-in-30-minutes/1vo4q819', description: 'Healthy meal ideas.'},{url: 'https://www.merchantsgroup.com/blog/struggling-to-make-time-for-fitness-during-work-here-are-10-ways-to-incorporate-exercise-into-your-busy-workday/', description: 'Fit exercise into your daily routine.'},{url: 'https://www.themanual.com/fitness/best-workouts-for-beginners/', description: 'Workout guide for beginners.'},{url: 'https://www.everydayhealth.com/diet-and-nutrition/diet/ways-eat-more-probiotics-everyday/', description: 'Eat more probiotics.'},{url: 'https://www.healthline.com/health-news/spending-time-in-nature-is-good-for-you-new-research-explains-why#Outcomes-on-well-being', description: 'Nature and health.'}])
+
+# mental.resources
+# mental.resources.create([{url:'https://www.skillshare.com/en/', description:'Learn new skills.'},{url:'https://fourminutebooks.com/best-self-help-books/', description:'Self-help reading.'},{url:'https://www.betterup.com/blog/how-to-start-journaling', description:'How to start journaling.'},{url:'https://www.mayoclinic.org/healthy-lifestyle/stress-management/in-depth/positive-thinking/art-20043950', description:'Positive thinking.'}])
+
+# emotional.resources
+# emotional.resources.create([{url:'https://www.betterhelp.com/get-started/?go=true&utm_content=133524759310&utm_source=AdWords&utm_medium=Search_PPC_c&utm_term=betterhelp_e&network=g&placement=&target=&matchtype=e&utm_campaign=15234220559&ad_type=text&adposition=&kwd_id=kwd-300752210814&gclid=Cj0KCQjw8e-gBhD0ARIsAJiDsaWxJyZocIa8Y9HOTCl5yoDyV-8HuFkEbRqr83TbPJcv7PFT35gMWCsaAkzQEALw_wcB&not_found=1&gor=start', description:'Look into therapy.'},{url:'https://www.betterup.com/blog/how-to-start-journaling', description:'How to start journaling.'},{url:'https://www.oprahdaily.com/life/relationships-love/g25629970/positive-affirmations/', description:'Positive affirmations.'}])
+
+# emotional.resources.create({url:'https://www.bbrfoundation.org/blog/self-love-and-what-it-means', description:'Self-Love'})
+
+# # environmental.resources
+# environmental.resources.create([{url:'https://evapolar.com/blog/how-to-organize-your-workspace-at-home/', description:'Organize your workspace.'},{url:'https://www.theinfatuation.com/new-york/guides/coffee-shops-nyc-for-doing-work', description:'Coffee shops in NYC.'},{url:'https://www.nourluxury.com/blogs/news/how-to-relax-before-bed', description:'How to unwind.'}]) 
+
+# # financial.resources
+# financial.resources.create([{url:'https://www.investopedia.com/articles/personal-finance/100516/setting-financial-goals/', description:'Financial goals.'},{url:'https://www.nerdwallet.com/article/finance/best-budget-apps', description:'Budgeting.'},{url:'https://blog.gratefulness.me/money-affirmations/', description:'Money affirmations.'}])
+
+# # social.resources
+# social.resources.create([{url:'https://medium.com/the-mission/why-negative-people-are-literally-killing-you-and-how-to-obliterate-pessimism-from-your-life-eb85fadced87', description:'Dealing with negative people.'},{url:'https://www.scienceofpeople.com/how-to-set-boundaries/', description:'Create healthy boundaries.'}])
+
+# # professional.resources
+# professional.resources.create([{url:'https://www.skillshare.com/en/', description:'Learn new skills.'},{url:'https://www.careercontessa.com/advice/healthy-boundaries-at-work/', description:'Set boundaries at work.'},{url:'https://www.indeed.com/career-advice/career-development/time-management-skills', description:'Time management skills.'},{url:'https://www.betterup.com/blog/how-to-have-good-work-life-balance', description:'Work-life balance.'}])
+
+# # spiritual.resources
+# spiritual.resources.create([{url:'https://www.nytimes.com/guides/well/how-to-meditate', description:'Meditation.'},{url:'https://www.nytimes.com/guides/well/beginner-yoga', description:'Beginner yoga.'},{url:'https://hbr.org/2022/03/dont-underestimate-the-power-of-self-reflection', description:'Power of self-reflection'},{url:'https://www.mindbodygreen.com/articles/manifestation', description:'Manifestation.'}])
+# spiritual.resources.create({url:'https://hbr.org/2022/03/dont-underestimate-the-power-of-self-reflection', description:'Power of self-reflection.'})
