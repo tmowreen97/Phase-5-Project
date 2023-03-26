@@ -22,6 +22,7 @@ const addExperience = (experience)=> {
 }
 
 const editExperience = (experience) => {
+  console.log('fetch',`/experiences/${experience.id}`)
   return(
     fetch(`/experiences/${experience.id}`, {
       method: 'PATCH',

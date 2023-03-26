@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import {useParams} from 'react-router-dom';
 import { useState } from 'react';
 import { useAddExperience, useEditExperience, useDeleteExperience } from './mutations/experienceMutations';
-import { useMutation, mutate } from 'react-query';
+import { useMutation, mutate, useQueryClient } from 'react-query';
 import { AppContext } from './App';
+import CategoryExperienceList from './CategoryExperienceList';
+import validateData from 'json-server/lib/server/router/validate-data';
 
 function CategoryShow(){
 
@@ -51,9 +53,11 @@ const CategoryActivities = ({category}) => {
 }
 
 const CategoryExperiences = ({category, user}) => {
-  const [showPopUp, setShowPopUp] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showAddForm, setShowAddForm] = useState(false)
+  const [addData, setAddData] = useState([])
+  const queryClient = useQueryClient();
+  let tryThis = []
 
   const [experiences, setExperiences] = useState(category.experiences)
   const {mutate: addExperience} = useAddExperience()
@@ -72,10 +76,12 @@ const CategoryExperiences = ({category, user}) => {
       return (experience.id != editComment.id)
     })
     updatedExperiences.push(editComment)
+    console.log('in edit', editComment)
     editExperience(editComment)
     setExperiences(updatedExperiences)
-    setShowPopUp(!showPopUp)
   }
+
+
 
   //DELETE
   function handleDelete(e, id){
@@ -88,20 +94,60 @@ const CategoryExperiences = ({category, user}) => {
     setShowConfirm(!showConfirm)
   }
   //WORKING ON GETTING ERROR MESSAGES FROM USEMUTATION
-  // const mutationFn = (experience) => {
-  //   fetch(`/experiences/${experience.id}`, {
-  //     method: 'PATCH',
-  //     headers:{
-  //       'Content-Type':'application/json'
-  //     },
-  //     body: JSON.stringify(experience)
-  //   })
-  //   .then(resp => resp.json())
+
+  // const addExperience = (experience)=> {
+  //   return(
+  //     fetch('/experiences', {
+  //       method: 'POST',
+  //       headers:{
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(experience)
+  //     })
+  //     .then(res => {
+  //       if (res.ok) {
+  //         return res.json()
+  //       }
+  //       console.log(res.status)
+  
+  //       throw new Error("Error creating experience")
+  //     })
+  //   )
   // }
 
-  // const addMutationData = useMutation(mutationFn, {
-  //   onError: (error) => {return(error)}
-  // })
+  const addMutation = useMutation(async (experience)=> {
+    return(
+      await fetch('/experiences', {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(experience)
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        console.log(res.status)
+
+        throw new Error("Error creating experience")
+      })
+      )
+  },
+  {
+    onSuccess: (data, variables, context) => {
+      const experience = [...experiences]
+      experience.push(data)
+      setExperiences(experience)
+    },
+    onError:(error, variables)=> {
+      console.log('error', error)
+      console.log('variables', variables)
+    }
+  })
+
+  console.log('adddd', addData)
+  
 
   //ADD
   function handleAdd(e, newExperience){
@@ -116,13 +162,16 @@ const CategoryExperiences = ({category, user}) => {
     
     updatedExperiences.push(experience)
     //calls useMutation function from experienceMutations file
-    addExperience(experience)
-    // mutate({addMutationData})
+    // addExperience(experience)
+    // mutate({data, error, status}(experience))
+    addMutation.mutate(experience)
+    console.log('addData', addData)
+    console.log('trythis', tryThis)
+    console.log('addMutation', addMutation.data)
     //updates state values
-    setExperiences(updatedExperiences)
+    // setExperiences(updatedExperiences)
     console.log('error',addExperience.error)
     alert('You just added an experience!')
-    // window.location.reload()
     //hides add experience form
     setShowAddForm(!showAddForm)
 
@@ -136,14 +185,7 @@ const CategoryExperiences = ({category, user}) => {
       {experiences.map((experience)=>{
         return(
           <div className='experience-list-section'>
-            <li key={experience.id} className='experience-list-item'>{experience.comment} -@{experience.username}</li>
-            {(experience.username == user.username) ? <button className='edit-experience-button' onClick={() => setShowPopUp(!showPopUp)}>{showPopUp ? 'Close' : '✎'}</button> : ''}
-            {(experience.username == user.username) ? <button className='delete-experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showConfirm ? '' : '🗑'}</button> : ''}
-            {showPopUp && (experience.username == user.username) ? <PopUpEditForm comment={experience} handleEdit={handleEdit}/> : ''}
-            {showConfirm && (experience.username == user.username) ?  <ConfirmDeleteForm setShowConfirm={setShowConfirm} handleDelete={handleDelete} id={experience.id}/> : ''}
-            {
-              addExperience.isError && <p>{addExperience.error.message}</p>
-            }
+            <CategoryExperienceList handleEdit={handleEdit} handleDelete={handleDelete} experience={experience}/>
           </div>
         )
       })
@@ -151,40 +193,6 @@ const CategoryExperiences = ({category, user}) => {
       }
 
     </div>
-  )
-}
-
-const PopUpEditForm= ({comment, handleEdit}) => {
-  const [editComment, setEditComment] = useState(comment)
-
-  return(
-    <form>
-      <input 
-      type='text'
-      className='edit-input'
-      value={editComment.comment}
-      onChange={(e)=> {
-        setEditComment(prevState => {
-          return {...prevState, comment: e.target.value}
-        })
-      }}
-      />
-      <button className='edit-button' type='submit' onClick={(e)=> handleEdit(e, editComment)}>Submit</button>
-    </form>
-  )
-}
-
-const ConfirmDeleteForm= ({setShowConfirm, handleDelete, id})=> {
-  console.log('in confirm', id)
-  return(
-    <div className='delete-form'>
-      <div className='delete-confirm'>
-        <h5>Are you sure you want to delete?</h5>
-        <button className='confirm-button' onClick={()=> setShowConfirm(false)}>No</button>
-        <button className='confirm-button' type='submit' onClick={(e)=> handleDelete(e,id)}>Yes</button>
-      </div>
-    </div>
-
   )
 }
 

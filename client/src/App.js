@@ -32,7 +32,7 @@ function App() {
       .then(resp => resp.json())
     )
   }, {
-    retryOnMount: 'always',
+    retryOnMount: true,
     select: (data) => {
       console.log('data first', data)
       const act = data.map((dat)=> {
@@ -51,6 +51,7 @@ function App() {
   const [isLogged, setIsLogged] = useState(false)
 
   console.log('with let', activities)
+  console.log('status', status)
 
 
   // **USER USEQUERY NOT WORKING 
