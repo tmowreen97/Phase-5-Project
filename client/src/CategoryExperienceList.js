@@ -13,7 +13,7 @@ function CategoryExperienceList ({experience, handleEdit, handleDelete}){
     <div>
       <li key={experience.id} className='experience-list-item'>{experience.comment} -{experience.username}</li>
       {user.username === experience.username ? <button className='edit-experience-button' onClick={() => setShowEdit(!showEdit)}>{showEdit ? 'Close' : '✎'}</button> : ''}
-      {user.username === experience.username ? <button  className='delete-experience-button' onClick={() => setShowConfirm(!showConfirm)}>{showConfirm ? 'Close' : '🗑'}</button> : ''}
+      {user.username === experience.username ? <button  className='delete-experience-button' onClick={() => setShowConfirm(!showConfirm)}>🗑</button> : ''}
       {showEdit && <PopUpEditForm experience={experience} handleEdit={handleEdit} setShowEdit={setShowEdit} showEdit={showEdit}/>}
       {showConfirm &&  <ConfirmDeleteForm setShowConfirm={setShowConfirm} handleDelete={handleDelete} id={experience.id}/>}
     </div>

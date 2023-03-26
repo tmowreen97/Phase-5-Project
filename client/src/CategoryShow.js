@@ -5,15 +5,15 @@ import { useAddExperience, useEditExperience, useDeleteExperience } from './muta
 import { useMutation, mutate, useQueryClient } from 'react-query';
 import { AppContext } from './App';
 import CategoryExperienceList from './CategoryExperienceList';
+import axios from 'axios';
 import validateData from 'json-server/lib/server/router/validate-data';
 
 function CategoryShow(){
 
+  //useContext values from App
   const {user, category_query} = useContext(AppContext)
 
-  //to handle edit experience PATCH request
-  
-
+  // Make a request for a user with a given ID
   let { id } = useParams()
   console.log({id})
   const currentCategory = category_query.filter((category)=> {
@@ -21,6 +21,7 @@ function CategoryShow(){
       category.id == id
     )
   })
+
 
   return(
     currentCategory.map((category)=> {
@@ -53,20 +54,20 @@ const CategoryActivities = ({category}) => {
 }
 
 const CategoryExperiences = ({category, user}) => {
+
+  //experiences state
+  const [experiences, setExperiences] = useState(category.experiences)
+
+  //error state (only one error applicable, comment can't be blank)
+  const [errors, setErrors] = useState(null)
+
+  //toggle states
   const [showConfirm, setShowConfirm] = useState(false)
   const [showAddForm, setShowAddForm] = useState(false)
-  const [addData, setAddData] = useState([])
-  const queryClient = useQueryClient();
-  let tryThis = []
 
-  const [experiences, setExperiences] = useState(category.experiences)
-  const {mutate: addExperience} = useAddExperience()
+  //mutations from separate mutations folder
   const {mutate: editExperience} = useEditExperience()
   const {mutate: deleteExperience} = useDeleteExperience()
-
-  console.log('experiences,', experiences)
-  console.log('category', category)
-  console.log('user', user)
 
   //HANDLE FUNCTIONS
   //EDIT
@@ -76,12 +77,9 @@ const CategoryExperiences = ({category, user}) => {
       return (experience.id != editComment.id)
     })
     updatedExperiences.push(editComment)
-    console.log('in edit', editComment)
     editExperience(editComment)
     setExperiences(updatedExperiences)
   }
-
-
 
   //DELETE
   function handleDelete(e, id){
@@ -93,98 +91,64 @@ const CategoryExperiences = ({category, user}) => {
     setExperiences(updatedExperiences)
     setShowConfirm(!showConfirm)
   }
-  //WORKING ON GETTING ERROR MESSAGES FROM USEMUTATION
 
-  // const addExperience = (experience)=> {
-  //   return(
-  //     fetch('/experiences', {
-  //       method: 'POST',
-  //       headers:{
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(experience)
-  //     })
-  //     .then(res => {
-  //       if (res.ok) {
-  //         return res.json()
-  //       }
-  //       console.log(res.status)
-  
-  //       throw new Error("Error creating experience")
-  //     })
-  //   )
-  // }
-
-  const addMutation = useMutation(async (experience)=> {
+  //add experience mutation function
+  const addExperience = useMutation((experience)=> {
     return(
-      await fetch('/experiences', {
-        method: 'POST',
-        headers:{
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(experience)
-      })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        console.log(res.status)
-
-        throw new Error("Error creating experience")
+      axios.post('/experiences', experience)
+      .then(function (response) {
+        //handle success, first setErrors back to null
+        setErrors(null)
+        //return response data
+        return (response.data)
+        //no need to catch errors because useQuery onError does that for us
       })
       )
   },
   {
-    onSuccess: (data, variables, context) => {
+    onSuccess: (data) => {
+      //on success, update state value of experiences which will update experiences list
+      console.log('should only pop up on success', data)
       const experience = [...experiences]
       experience.push(data)
       setExperiences(experience)
     },
-    onError:(error, variables)=> {
-      console.log('error', error)
-      console.log('variables', variables)
+    onError:(error)=> {
+      //on error, return error message
+      console.log('should pop up in error', error)
+      setErrors("Comment can't be blank")
+
+      return error
     }
   })
-
-  console.log('adddd', addData)
   
-
   //ADD
   function handleAdd(e, newExperience){
     e.preventDefault()
-    const updatedExperiences = [...experiences]
+    setErrors(null)
     const experience = {
       comment: newExperience,
       user_id: user.id,
       category_id: category.id,
       username: user.username
     }
-    
-    updatedExperiences.push(experience)
-    //calls useMutation function from experienceMutations file
-    // addExperience(experience)
-    // mutate({data, error, status}(experience))
-    addMutation.mutate(experience)
-    console.log('addData', addData)
-    console.log('trythis', tryThis)
-    console.log('addMutation', addMutation.data)
-    //updates state values
-    // setExperiences(updatedExperiences)
-    console.log('error',addExperience.error)
-    alert('You just added an experience!')
+    //call addMutation useMutation function from above (not from separate file, because I'm also handling state info there)
+    addExperience.mutate(experience)
     //hides add experience form
     setShowAddForm(!showAddForm)
-
-    //PROBLEM UPLOADING STATE
   }
   return(
     <div className='category-experiences'>
       <h4 className='experiences-title'>Experiences:</h4>
       {showAddForm && <AddForm handleAdd={handleAdd}/>}
-      <button className='add-button' onClick={() => setShowAddForm(!showAddForm)}>{showAddForm ? 'Close' : 'Add Experience'}</button>
+      <button className='add-button' onClick={() => {
+        setErrors(null)
+        setShowAddForm(!showAddForm)
+        }}>{showAddForm ? 'Close' : 'Add Experience'}</button>
+      {errors ? <p className='error-message'>{errors}</p> : ''}
       {experiences.map((experience)=>{
         return(
-          <div className='experience-list-section'>
+          <div key={experience.id} className='experience-list-section'>
             <CategoryExperienceList handleEdit={handleEdit} handleDelete={handleDelete} experience={experience}/>
           </div>
         )
@@ -211,5 +175,4 @@ const AddForm= ({handleAdd}) => {
       </form>
     </div>
   )
-  
 }
