@@ -199,7 +199,7 @@ function Activities(){
       </div>
         {allActivities && allActivities.filter((activity)=> activity.name.includes(search)).map((activity)=> {
           return(
-            <li className="all-activities-list">{activity.name} -{activity.category}</li>
+            <li key={activity.id} className="all-activities-list">{activity.name} -{activity.category}</li>
           )
         })} 
       </div>

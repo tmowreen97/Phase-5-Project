@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :resources, only:[:index, :update, :show]
   resources :categories, only:[:index, :update, :show, :create]
   resources :activities, only: [:index, :update]
   resources :experiences, only: [:index, :update, :destroy, :create]
