@@ -6,9 +6,9 @@ import { AppContext } from "./App";
 
 function Categories(){
   const navigate = useNavigate()
-  const {category_query} = useContext(AppContext)
+  const {categories} = useContext(AppContext)
 
-  const sortedCategories = [...category_query].sort(function(a, b) {
+  const sortedCategories = [...categories].sort(function(a, b) {
       const nameA = a.name
       const nameB = b.name
           
@@ -32,7 +32,7 @@ function Categories(){
       <h1 className="categories-title">Categories</h1>
       <p className="categories-desc">Did you know there are 8 categories of self-care? Click on any category to learn more!</p>
     <div className="grid">
-      {category_query && sortedCategories.map((category)=> {
+      {categories && sortedCategories.map((category)=> {
         return(
           <Card key={category.id} style={{ width: '18rem' }} className='box' onClick={()=> navigate(`/category/${category.id}`)}>
           <Card.Img variant="top" src={category.img} />

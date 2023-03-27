@@ -13,12 +13,12 @@ export const CategoryExperienceContext = createContext()
 function CategoryShow(){
 
   //useContext values from App
-  const {user, category_query} = useContext(AppContext)
+  const {user, categories} = useContext(AppContext)
 
   // Make a request for a user with a given ID
   let { id } = useParams()
   //Find category that matches 
-  const current = category_query.filter((category)=> {
+  const current = categories.filter((category)=> {
     return (
       category.id.toString() === id
     )

@@ -18,6 +18,7 @@ import axios from 'axios';
 export const AppContext = createContext()
 function App() {
   const [activities, setActivities] = useState([])
+  const [categories, setCategories] = useState([])
   const [user, setUser]= useState(null)
 
   //This useQuery is to keep the user logged in, sends request to sessions#create /me
@@ -39,9 +40,7 @@ function App() {
 
   //This useQuery currently working for categories and category show page AND activities
   //Able to store activities in activities state
-  const {
-    data: category_query
-  } = useQuery('categories', () => {
+  useQuery('categories', () => {
     return(
       axios.get('/categories')
       .then(resp => {
@@ -59,21 +58,22 @@ function App() {
         )
       })
       setActivities([...act.flat()])
+      setCategories(data)
       return data
     } 
   })
 
   return (
-    <AppContext.Provider value={{user, setUser, activities, category_query}}>
+    <AppContext.Provider value={{user, setUser, activities, categories}}>
       <div className="app">
       {user && <Navigation/>}
       <Routes>
         <Route element={<Login/>} path="/login"/>
         <Route element={<SignUp/>} path="/signup"/>
         {user && <Route element={<Profile/>} path="/profile"/>}
-        {user && category_query && <Route element={<Categories/>} path="/all-categories"/>}
-        {user && category_query && <Route element={<CategoryShow/>} path="/category/:id"/>}
-        {user && category_query && <Route element={<Activities/>} path="/all-activities"/>}
+        {user && categories && <Route element={<Categories/>} path="/all-categories"/>}
+        {user && categories && <Route element={<CategoryShow/>} path="/category/:id"/>}
+        {user && categories && <Route element={<Activities/>} path="/all-activities"/>}
         <Route element={<Home/>} exact path="/"/>
       </Routes>
       </div>
