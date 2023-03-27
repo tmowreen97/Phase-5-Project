@@ -37,11 +37,6 @@ function Activities(){
     return 0;
   });
   const [allActivities, setAllActivities] = useState(ascending)
-  const [allCategories, setAllCategories] = useState((activities.map((act)=>{
-    return(act.category)
-  })).filter((currentValue, index, arr)=> (
-    arr.indexOf(currentValue) === index
-  )))
 
   const categoryOptions = [
     {value: "Emotional", label: "Emotional"},
@@ -54,13 +49,10 @@ function Activities(){
     {value: "Spiritual", label: "Spiritual"},
   ]
 
-  console.log(allCategories)
-
   const [sort, setSort] = useState('ascending')
 
-  console.log('act',allActivities)
   function handleSelection(e){
-    if (e == 'descending'){
+    if (e === 'descending'){
       const descending = [...allActivities].sort(function(a, b) {
         const nameA = a.name.toUpperCase(); // ignore upper and lowercase
         const nameB = b.name.toUpperCase(); // ignore upper and lowercase
@@ -99,7 +91,6 @@ function Activities(){
   }
 
   function handleFilter(e){
-    console.log(e)
     if (sort === 'ascending'){
       const filtered = e.map(element => {
       return(
@@ -122,7 +113,6 @@ function Activities(){
           }
           return 0;
         });
-        console.log('Flat',flattened)
         setAllActivities(flattened)
     } else {
       const filtered = e.map(element => {
@@ -151,16 +141,7 @@ function Activities(){
     }
     }
    
-    
-  
-  
 
-
-  
-
-    
-
-  console.log('descending', descending)
   // console.log('ascending', ascending)
 
   return(

@@ -1,11 +1,13 @@
-import react, { useContext, useState } from "react";
+import { useContext, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "./App";
+import { useMutation } from "react-query";
 
 
 function Login(){
 
-  const {setUser, setIsLogged, user} = useContext(AppContext)
+  const {setUser} = useContext(AppContext)
 
   const navigate= useNavigate()
   const [userHash, setUserHash] = useState({
@@ -14,36 +16,28 @@ function Login(){
   })
   const [errors, setErrors]= useState([])
 
+  const loginUser = useMutation((user_data)=> {
+    return(
+      axios.post('/login', user_data)
+      .then(response => {
+        setErrors(null)
+        return(response.data)
+      })
+    )
+  },{
+    onSuccess: (data)=> {
+      setUser(data)
+      navigate("/profile")
+    },
+    onError: (error)=> {
+      setErrors(error.response.data.error)
+    }
+  }
+  )
+
   function handleLogin(e){
     e.preventDefault()
-    fetch("/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(userHash),
-    })
-    .then((r)=> {
-      if (r.ok) {
-        r.json().then((user)=> {
-          setUser(user)
-          setUserHash({
-            username: "",
-            password: ""
-          })
-          setIsLogged(true)
-          navigate("/profile")
-        })
-      } else {
-        r.json().then((err)=> {
-          setErrors(err.error)
-          setUserHash({
-            username: "",
-            password: ""
-          })
-        })
-      }
-    })
+    loginUser.mutate(userHash)
   }
 
   return(

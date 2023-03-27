@@ -1,11 +1,13 @@
-import react, { useContext, useState } from "react";
+import { useContext, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "./App";
+import { useMutation } from "react-query";
 
 function SignUp(){
 
   const navigate= useNavigate()
-  const {setUser, setIsLogged, user} = useContext(AppContext)
+  const {setUser} = useContext(AppContext)
   const [userHash, setUserHash]= useState({
     username: "",
     password: "",
@@ -13,44 +15,32 @@ function SignUp(){
     bio: ""
   })
   const [errors, setErrors] = useState([])
-  console.log(errors)
+
+
+  const signupUser = useMutation((user_data)=> {
+    return(
+      axios.post('/signup', user_data)
+      .then(response => {
+        setErrors(null)
+        return(response.data)
+      })
+    )
+  },{
+    onSuccess: (data)=> {
+      setUser(data)
+      navigate("/profile")
+    },
+    onError: (error)=> {
+      setErrors(error.response.data.errors)
+    }
+  }
+  )
   function handleSignUp(e){
     e.preventDefault()
-    fetch("/signup", {
-      method: "POST",
-      headers:{
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(userHash),
-    })
-    .then((r)=> {
-      if(r.ok){
-        r.json().then((user)=> {
-          setUser(user)
-          setUserHash({
-            username: "",
-            password: "",
-            password_confirmation: "",
-            bio: ""
-          })
-          setIsLogged(true)
-          navigate("/profile")
-        })
-      } else {
-        r.json().then((err)=> {
-          setErrors(err.errors)
-          setUserHash({
-            username: "",
-            password: "",
-            password_confirmation: "",
-            bio: ""
-          })
-          setIsLogged(false)
-        })
-        
-      }
-    })
+    signupUser.mutate(userHash)
   }
+
+
   return(
     <div className="signup">
       <div className="signup-box">
@@ -113,7 +103,6 @@ function SignUp(){
             <p className="errors">{error}</p>
           )
         })
-        
         }   
       </div>
       </div>

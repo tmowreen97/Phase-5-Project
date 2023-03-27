@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, createContext } from 'react';
 import '../src/styles/styles.css';
 import Home from './Home';
 import Login from './Login';
@@ -10,31 +10,47 @@ import { Routes, Route } from 'react-router-dom';
 import Categories from './Categories';
 import Activities from './Activities';
 import { useQuery } from 'react-query';
+import axios from 'axios';
 
 // useQuery is the hook for all data fetching needs
 // takes two arguments, first one is a key second is a function that returns a promise
 
 export const AppContext = createContext()
 function App() {
+  const [activities, setActivities] = useState([])
+  const [user, setUser]= useState(null)
 
-  // const [query, setQuery]= useState([])
-  let activities
+  //This useQuery is to keep the user logged in, sends request to sessions#create /me
+  //If successful setUser to data, else setUser to null
+  useQuery('me', async () => {
+    try{
+      return(
+      axios.get('/me')
+      .then(resp => {return(resp.data)})
+    )
+    } catch(error){
+      setUser(null)
+    }
+  }, {
+    onSuccess : (data) => {
+      setUser(data)
+    } 
+  })
 
   //This useQuery currently working for categories and category show page AND activities
-  //Able to store activities in array activities above
+  //Able to store activities in activities state
   const {
-    status,
-    error,
     data: category_query
   } = useQuery('categories', () => {
     return(
-      fetch('/categories')
-      .then(resp => resp.json())
+      axios.get('/categories')
+      .then(resp => {
+        return resp.data
+      })
     )
   }, {
-    retryOnMount: true,
-    select: (data) => {
-      console.log('data first', data)
+    retryOnMount: false,
+    onSuccess : (data) => {
       const act = data.map((dat)=> {
         return(
           dat.activities.flat().map((acti)=> {
@@ -42,67 +58,13 @@ function App() {
         })
         )
       })
-      activities=[...act.flat()]
-      console.log('act in query', activities)
-      
+      setActivities([...act.flat()])
       return data
-    }
+    } 
   })
-  const [isLogged, setIsLogged] = useState(false)
 
-  console.log('with let', activities)
-  console.log('status', status)
-
-
-  // **USER USEQUERY NOT WORKING 
-
-  // const user_query = useQuery("me", async () => {
-  //     const response = await fetch("/me")
-  //     if (!response.ok){
-  //       throw new Error('Not successful')
-  //     }
-  //     return response.json()
-  //   },
-  //   {
-  //     refetchOnMount: 'always',
-  //   }
-  // )
-  // console.log('query', user_query)
-  // console.log('query.data', user_query.data)
-
-  const [user, setUser]= useState(null)
-  console.log('user', user)
-
-
-  // console.log('user status', user_status)
-
-  //USEQUERY FORMAT FOR FETCH REQUESTS WITH ERRORS
-  // useQuery({
-  //   queryKey: ['todos', todoId],
-  //   queryFn: async () => {
-  //     const response = await fetch('/todos/' + todoId)
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok')
-  //     }
-  //     return response.json()
-  //   },
-  // })
-
-  //keeps user logged in
-  useEffect(()=> {
-    console.log('useeffect initiated')
-    fetch("/me").then(r => {
-      if (r.ok){
-        r.json().then((user)=> {
-          setUser(user)
-        })
-      }
-    })
-  }, [isLogged])
-
-  console.log('isLogged', isLogged)
   return (
-    <AppContext.Provider value={{user, setUser, setIsLogged, activities, category_query}}>
+    <AppContext.Provider value={{user, setUser, activities, category_query}}>
       <div className="app">
       {user && <Navigation/>}
       <Routes>

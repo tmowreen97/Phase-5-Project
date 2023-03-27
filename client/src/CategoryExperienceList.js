@@ -1,36 +1,36 @@
 import React from "react";
 import { useContext, useState } from "react";
 import { AppContext } from "./App";
+import { CategoryExperienceContext } from "./CategoryShow";
 
 
 
-function CategoryExperienceList ({experience, handleEdit, handleDelete}){
+function CategoryExperienceList ({experience}){
   const [showEdit, setShowEdit] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
 
+  //Grab data from useContext
   const {user} = useContext(AppContext)
+
   return(
     <div>
       <li key={experience.id} className='experience-list-item'>{experience.comment} -{experience.username}</li>
       {user.username === experience.username ? <button className='edit-experience-button' onClick={() => setShowEdit(!showEdit)}>{showEdit ? 'Close' : '✎'}</button> : ''}
       {user.username === experience.username ? <button  className='delete-experience-button' onClick={() => setShowConfirm(!showConfirm)}>🗑</button> : ''}
-      {showEdit && <PopUpEditForm experience={experience} handleEdit={handleEdit} setShowEdit={setShowEdit} showEdit={showEdit}/>}
-      {showConfirm &&  <ConfirmDeleteForm setShowConfirm={setShowConfirm} handleDelete={handleDelete} id={experience.id}/>}
+      {showEdit && <PopUpEditForm experience={experience} setShowEdit={setShowEdit}/>}
+      {showConfirm &&  <ConfirmDeleteForm setShowConfirm={setShowConfirm} id={experience.id}/>}
     </div>
   )
 }
 export default CategoryExperienceList;
 
 
-const PopUpEditForm= ({experience, handleEdit, showEdit, setShowEdit}) => {
-  const [editComment, setEditComment] = useState(experience)
-  console.log('pop',editComment)
-  // debugger
+const PopUpEditForm= ({experience,setShowEdit}) => {
+  //Grab callback func from useContext
+  const {handleEdit} = useContext(CategoryExperienceContext)
 
-  function handleSubmit(e, editComment){
-    e.preventDefault()
-    console.log('in handle submit', editComment)
-  }  
+  const [editComment, setEditComment] = useState(experience)
+
   return(
     <form >
       <input 
@@ -51,8 +51,10 @@ const PopUpEditForm= ({experience, handleEdit, showEdit, setShowEdit}) => {
   )
 }
 
-const ConfirmDeleteForm= ({setShowConfirm, handleDelete, id})=> {
-  console.log('in confirm', id)
+const ConfirmDeleteForm= ({setShowConfirm, id})=> {
+  //Grab callback func from useContext
+  const {handleDelete} = useContext(CategoryExperienceContext)
+
   return(
     <div className='delete-form'>
       <div className='delete-confirm'>

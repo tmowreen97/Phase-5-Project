@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, createContext } from 'react';
 import {useParams, Link} from 'react-router-dom';
 import { useState } from 'react';
 import { useEditExperience, useDeleteExperience } from './mutations/experienceMutations';
@@ -6,7 +6,9 @@ import { useMutation} from 'react-query';
 import { AppContext } from './App';
 import CategoryExperienceList from './CategoryExperienceList';
 import axios from 'axios';
-import validateData from 'json-server/lib/server/router/validate-data';
+
+export const CategoryContext = createContext()
+export const CategoryExperienceContext = createContext()
 
 function CategoryShow(){
 
@@ -15,39 +17,38 @@ function CategoryShow(){
 
   // Make a request for a user with a given ID
   let { id } = useParams()
-  console.log({id})
-  const currentCategory = category_query.filter((category)=> {
+  //Find category that matches 
+  const current = category_query.filter((category)=> {
     return (
-      category.id == id
+      category.id.toString() === id
     )
   })
-
-  console.log('cat', currentCategory)
-
+  //Set current category
+  const currentCategory = current[0]
 
   return(
-    currentCategory.map((category)=> {
-      return(
-        <div key={category.id} className='category-show'>
-          <h1 className='category-title'>{category.name}</h1>
-          <p className='category-description'>{category.description}</p>
-          <CategoryActivities category={category}/>
-          <CategoryExperiences category={category} user={user}/>
-          <CategoryResources category={category} />
+    <CategoryContext.Provider value={{currentCategory, user}} >
+        <div key={currentCategory.name} className='category-show'>
+          <h1 className='category-title'>{currentCategory.name}</h1>
+          <p className='category-description'>{currentCategory.description}</p>
+          <CategoryActivities/>
+          <CategoryExperiences/>
+          <CategoryResources />
         </div>
-      )
-    })
+    </CategoryContext.Provider>
   )
 }
 
 export default CategoryShow;
 
-const CategoryResources = ({category}) => {
+const CategoryResources = () => {
+  const {currentCategory} = useContext(CategoryContext)
+
   return(
     <div className='category-resources'>
       <h4 className='resources-title'>Resources:</h4>
       <div className='resource-list'>
-        {category.resources.map((resource)=> {
+        {currentCategory.resources.map((resource)=> {
           return(
             <div key={resource.id} className='resource-list-item'>
               <label className='resource-description'>{resource.description} ➤ </label>
@@ -63,11 +64,13 @@ const CategoryResources = ({category}) => {
   )
 }
 
-const CategoryActivities = ({category}) => {
+const CategoryActivities = () => {
+  const {currentCategory} = useContext(CategoryContext)
+
   return(
     <div className='category-activities'>
           <h4 className='activities-title'>Activities:</h4>
-          {category.activities.map((activity)=> {
+          {currentCategory.activities.map((activity)=> {
             return(
               <li key={activity.id} className='activity-list-item'>{activity.name}</li>
             )
@@ -77,10 +80,12 @@ const CategoryActivities = ({category}) => {
   )
 }
 
-const CategoryExperiences = ({category, user}) => {
+const CategoryExperiences = () => {
+  const {currentCategory, user} = useContext(CategoryContext)
+
 
   //experiences state
-  const [experiences, setExperiences] = useState(category.experiences)
+  const [experiences, setExperiences] = useState(currentCategory.experiences)
 
   //error state (only one error applicable, comment can't be blank)
   const [errors, setErrors] = useState(null)
@@ -98,7 +103,7 @@ const CategoryExperiences = ({category, user}) => {
   function handleEdit(e, editComment){
     e.preventDefault()
     const updatedExperiences = experiences.filter((experience)=> {
-      return (experience.id != editComment.id)
+      return (experience.id !== editComment.id)
     })
     updatedExperiences.push(editComment)
     editExperience(editComment)
@@ -109,7 +114,7 @@ const CategoryExperiences = ({category, user}) => {
   function handleDelete(e, id){
     e.preventDefault()
     const updatedExperiences = experiences.filter((experience)=> {
-      return (experience.id != id)
+      return (experience.id !== id)
     })
     deleteExperience(id)
     setExperiences(updatedExperiences)
@@ -132,14 +137,12 @@ const CategoryExperiences = ({category, user}) => {
   {
     onSuccess: (data) => {
       //on success, update state value of experiences which will update experiences list
-      console.log('should only pop up on success', data)
       const experience = [...experiences]
       experience.push(data)
       setExperiences(experience)
     },
     onError:(error)=> {
       //on error, return error message
-      console.log('should pop up in error', error)
       setErrors("Comment can't be blank")
 
       return error
@@ -153,7 +156,7 @@ const CategoryExperiences = ({category, user}) => {
     const experience = {
       comment: newExperience,
       user_id: user.id,
-      category_id: category.id,
+      category_id: currentCategory.id,
       username: user.username
     }
     //call addMutation useMutation function from above (not from separate file, because I'm also handling state info there)
@@ -162,9 +165,10 @@ const CategoryExperiences = ({category, user}) => {
     setShowAddForm(!showAddForm)
   }
   return(
+    <CategoryExperienceContext.Provider value={{handleAdd, handleEdit, handleDelete}}>
     <div className='category-experiences'>
       <h4 className='experiences-title'>Experiences:</h4>
-      {showAddForm && <AddForm handleAdd={handleAdd}/>}
+      {showAddForm && <AddForm/>}
       <button className='add-button' onClick={() => {
         setErrors(null)
         setShowAddForm(!showAddForm)
@@ -173,18 +177,18 @@ const CategoryExperiences = ({category, user}) => {
       {experiences.map((experience)=>{
         return(
           <div key={experience.id} className='experience-list-section'>
-            <CategoryExperienceList handleEdit={handleEdit} handleDelete={handleDelete} experience={experience}/>
+            <CategoryExperienceList experience={experience}/>
           </div>
         )
       })
-
       }
-
     </div>
+    </CategoryExperienceContext.Provider>
   )
 }
 
-const AddForm= ({handleAdd}) => {
+const AddForm= () => {
+  const {handleAdd} = useContext(CategoryExperienceContext)
   const [newExperience, setNewExperience] = useState('')
   return(
     <div className='add-form'>

@@ -1,17 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import '../src/styles/card.css';import {useNavigate} from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+import React, { useContext } from "react";
+import '../src/styles/card.css';
+import {useNavigate} from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import { AppContext } from "./App";
 
 function Categories(){
   const navigate = useNavigate()
   const {category_query} = useContext(AppContext)
 
-  const [sortedCategories, setSortedCategories]= useState(
-    [...category_query].sort(function(a, b) {
+  const sortedCategories = [...category_query].sort(function(a, b) {
       const nameA = a.name
       const nameB = b.name
           
@@ -25,9 +22,8 @@ function Categories(){
       
         // names must be equal
         return 0;
-      })
-  )
-  console.log(sortedCategories)
+  })
+
 
   return(
     <div className="all-categories">

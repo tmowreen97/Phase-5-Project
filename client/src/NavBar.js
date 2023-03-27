@@ -2,68 +2,35 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useContext } from 'react';
 import { AppContext } from './App';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
+import axios from 'axios';
 
 
 
 function Navigation() {
-  const {setUser, setIsLogged, user} = useContext(AppContext)
-  console.log('in nav bar', user)
-
+  const {setUser} = useContext(AppContext)
   const navigate = useNavigate()
 
-  // const{
-  //   status,
-  //   error,
-  //   data
-  // } = useQuery("logout", async () => {
-  //   const response = await fetch("/logout", {
-  //     method: 'DELETE'
-  //   })
-  //   if (!response.ok) {
-  //     throw new Error('Logout Error')
-  //   }
-  //   return response.json()
-  // })
 
-  const queryClient = useQueryClient()
-
-
-  // const deletePost = useMutation(()=> {
-  //   fetch("/logout", {
-  //     method: 'DELETE'
-  //   })
-  //   queryClient.invalidateQueries()
-  //   navigate("/")
-  // })
+  const logoutUser = useMutation(()=> {
+    return (
+      axios.delete('/logout')
+      .then(resp => resp.data)
+    )
+  }, {
+    onSuccess: ()=> {
+      setUser(null)
+      navigate("/")
+    }
+  }
+  )
 
   function handleLogout(){
-    fetch("/logout", {
-      method: "DELETE"
-    })
-    .then((r)=>{
-      if(r.ok){
-        setUser(null)
-        setIsLogged(false)
-        navigate("/")
-      }
-    })
+    logoutUser.mutate()
   }
 
-  //USE QUERY FORMAT FOR FETCH REQUESTS WITH ERRORS
-  // useQuery({
-  //   queryKey: ['todos', todoId],
-  //   queryFn: async () => {
-  //     const response = await fetch('/todos/' + todoId)
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok')
-  //     }
-  //     return response.json()
-  //   },
-  // })
 
   return (
     <Navbar bg="light" expand="lg">

@@ -13,15 +13,13 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     end
   end
 
-  #profile
+  #profile /me
   def show
     user = User.find_by(id: session[:user_id])
     if user
-      
       render json: user, status: :ok
     else
-      
-      render json: {error: "Not found"}, status: :not_found
+      render json: {error: "Unauthorized"}, status: :unauthorized
     end
   end
 
