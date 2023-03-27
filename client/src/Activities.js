@@ -5,12 +5,11 @@ import { AppContext } from "./App";
 function Activities(){
   const {activities} = useContext(AppContext)
   const [search, setSearch] = useState('')
-
+  // console.log('act', activities)
   //Ascending Z-A
   const ascending =[...activities].sort(function(a, b) {
   const nameA = a.name.toUpperCase(); // ignore upper and lowercase
   const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-      
   // sort in an ascending order
     if (nameA < nameB) {
       return -1;
@@ -37,6 +36,8 @@ function Activities(){
     return 0;
   });
   const [allActivities, setAllActivities] = useState(ascending)
+  // console.log('ascending', ascending)
+  // console.log('allActivities', allActivities)
 
   const categoryOptions = [
     {value: "Emotional", label: "Emotional"},
@@ -178,7 +179,7 @@ function Activities(){
         />
         <button className='refresh-filter-button' onClick={()=> window.location.reload()} title="Click to refresh filter to default">↻</button>
       </div>
-        {allActivities && allActivities.filter((activity)=> activity.name.includes(search)).map((activity)=> {
+        {activities && allActivities.filter((activity)=> activity.name.includes(search)).map((activity)=> {
           return(
             <li key={activity.id} className="all-activities-list">{activity.name} -{activity.category}</li>
           )

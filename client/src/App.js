@@ -17,8 +17,8 @@ import axios from 'axios';
 
 export const AppContext = createContext()
 function App() {
-  const [activities, setActivities] = useState([])
-  const [categories, setCategories] = useState([])
+  const [activities, setActivities] = useState(null)
+  const [categories, setCategories] = useState(null)
   const [user, setUser]= useState(null)
 
   //This useQuery is to keep the user logged in, sends request to sessions#create /me
@@ -48,7 +48,7 @@ function App() {
       })
     )
   }, {
-    retryOnMount: false,
+    retryOnMount: true,
     onSuccess : (data) => {
       const act = data.map((dat)=> {
         return(
@@ -62,6 +62,7 @@ function App() {
       return data
     } 
   })
+  // console.log(activities)
 
   return (
     <AppContext.Provider value={{user, setUser, activities, categories}}>
@@ -73,7 +74,7 @@ function App() {
         {user && <Route element={<Profile/>} path="/profile"/>}
         {user && categories && <Route element={<Categories/>} path="/all-categories"/>}
         {user && categories && <Route element={<CategoryShow/>} path="/category/:id"/>}
-        {user && categories && <Route element={<Activities/>} path="/all-activities"/>}
+        {user && activities && <Route element={<Activities/>} path="/all-activities"/>}
         <Route element={<Home/>} exact path="/"/>
       </Routes>
       </div>
