@@ -42,7 +42,7 @@ function Navigation() {
             {/* <Nav.Link href="/">Home</Nav.Link> */}
             <Nav.Link href="/profile">Profile</Nav.Link>
             <Nav.Link href="/all-categories">Categories</Nav.Link>
-            <Nav.Link href="/all-activities">All Activities</Nav.Link>
+            <Nav.Link href="/all-activities">Activities</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <button className='logout-button' onClick={()=> handleLogout()}>Logout</button>

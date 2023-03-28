@@ -30,7 +30,12 @@ function Login(){
       navigate("/profile")
     },
     onError: (error)=> {
+      setUserHash({
+        username: "",
+        password: ""
+      })
       setErrors(error.response.data.error)
+      
     }
   }
   )

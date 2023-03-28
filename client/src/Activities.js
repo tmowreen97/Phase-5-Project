@@ -148,7 +148,7 @@ function Activities(){
   return(
     <div className="all-activities">
       <div className="activities">
-      <h1 className="all-activities-title" >All Activities</h1>
+      <h1 className="all-activities-title" >Activities</h1>
       <p className="all-activities-desc">Here are a list of all activities. Feel free to search by keyword, sort by name, or filter them by category!</p>
       <div className="filter-section">
         <input 

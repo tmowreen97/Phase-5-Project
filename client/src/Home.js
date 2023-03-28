@@ -19,7 +19,7 @@ function Home(){
         <img className='what-is-self-care-image' src='https://img.freepik.com/free-vector/self-care-concept_23-2148521977.jpg?w=2000' alt='Love Yourself'/>
         <div className="what-is">
           <h2>What is self-care?</h2>
-          <p>Self-care is the practice of individuals looking after their own health using knowledge and information avaialbale to them. It empowers individuals to take the time and do things that will help improve both their physical and mental health. Self-care can help manage stress, lower your risk of illness, and increase your energy. Small acts of self-care can have a big impact in your daily life.</p>
+          <p>Self-care is the practice of individuals looking after their own health using knowledge and information available to them. It empowers individuals to take the time and do things that will help improve both their physical and mental health. Self-care can help manage stress, lower your risk of illness, and increase your energy. Small acts of self-care can have a big impact in your daily life.</p>
         </div>
         
       </div>
