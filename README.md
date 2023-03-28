@@ -19,7 +19,7 @@ Then to run the server, *rails s*.
 For the **frontend**:\
 First run *npm install --prefix client* to install all the frontend dependencies (--prefix client because the frontend files are in the client folder).\
 Then run *npm start --prefix client* to start the frontend server.\
-This should open up the front end in your browser, and you should see the landing page **Self/Full**!\
+This should open up the front end in your browser, and you should see the landing page **Self/Full**!
 
 ## USER EXPERIENCE
 
@@ -33,4 +33,4 @@ The last link on the navigation bar is to *Activities*. This page shows a list o
 
 #### ADDITIONAL NOTES
 
-I created this page to spread awareness about the country's overwhelming issue with mental health. Many people still don’t believe in mental health issues like depression and anxiety to be real, and some people think the best way to get over it is to ignore it. This page is to show how easily someone can help better their mental health just by giving themselves some time and understanding. Now although, self-care is not a cure all answer, it is definitely improving lives of many and can improve yours as well. Learn to be Self/Full!
+I created this page to spread awareness about the country's overwhelming issue with mental health. Many people still don’t believe in mental health issues like depression and anxiety to be real, and some people think the best way to get over it is to ignore it. This page is to show how easily someone can help better their mental health just by giving themselves some time and understanding. Now although, self-care is not a cure all answer, it is definitely improving lives of many and can improve yours as well. Learn to be **Self/Full**!
