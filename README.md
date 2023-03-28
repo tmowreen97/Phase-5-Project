@@ -4,7 +4,7 @@ Are you practicing self-care? If not, you should be! Self-care does nothing but 
 
 ## SETUP
 
-First clone this repository by copying the SSH key and entering it in your terminal with 'git clone * *paste SSH key* *'. Then navigate to that folder's directory and open it up using your preferred code editor, I prefer Visual Studio Code.\
+First clone this repository by copying the SSH key and entering it in your terminal with 'git clone * *paste SSH key* *'. Then navigate to that folder's directory and open it up using your preferred code editor, I prefer Visual Studio Code.
 
 Once you're there you'll need to set up your backend and frontend.\
 This project has a Rails backend and a React frontend.\
