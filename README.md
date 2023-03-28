@@ -11,7 +11,7 @@ This project has a Rails backend and a React frontend.\
 For the **backend**:\
 First run *bundle install* to install all the backend dependencies.\
 To create the database, *rails db:create*.\
-To create the tables and seed our data, *rails db:migrate:seed*.\
+To create the tables and seed our data, *rails db:migrate:seed*.
 > Best practice, when done seeding feel free to comment out the data in the seeds file (located in the db folder) to ensure none of the data is duplicated.
 
 Then to run the server, *rails s*.
