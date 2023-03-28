@@ -24,11 +24,11 @@ This should open up the front end in your browser, and you should see the landin
 ## USER EXPERIENCE
 
 In order to have access to Self/Full and all its helpful information, you'd need to signup for an account if you don't already have one. Press the Login button on the top right corner, input your login info or press the signup button on the bottom to register.\
-Once filled out correctly, you'll be navigated to your *Profile*. Here you'll see your bio displayed as well as a list of the experiences you've made. You can click on each experience to go to it's category display page.\ 
+Once filled out correctly, you'll be navigated to your *Profile*. Here you'll see your bio displayed as well as a list of the experiences you've made. You can click on each experience to go to it's category display page.
 
-The next link on the navigation bar is to *Categories*. This shows a list of the 8 forms of self-care categories. You can click on each one to show it's details. This is where you'll get a list of the activities for that category, all the experiences that user's have written for that category, and a list of resources based on the goals of that category. On the experiences list you're able to add a new experience, and edit/delete existing ones you've created.\ 
+The next link on the navigation bar is to *Categories*. This shows a list of the 8 forms of self-care categories. You can click on each one to show it's details. This is where you'll get a list of the activities for that category, all the experiences that user's have written for that category, and a list of resources based on the goals of that category. On the experiences list you're able to add a new experience, and edit/delete existing ones you've created.
 
-The last link on the navigation bar is to *Activities*. This page shows a list of all the activities, for all categories. You're able to search by keyword, sort in alphabetical or reverse alphabetical order, and lastly filter through which categories you'd like to view. There is a refresh button on the right hand side to refresh back to default, which is showing the activities for all categories in alphabetical order.\ 
+The last link on the navigation bar is to *Activities*. This page shows a list of all the activities, for all categories. You're able to search by keyword, sort in alphabetical or reverse alphabetical order, and lastly filter through which categories you'd like to view. There is a refresh button on the right hand side to refresh back to default, which is showing the activities for all categories in alphabetical order.
 
 
 #### ADDITIONAL NOTES
