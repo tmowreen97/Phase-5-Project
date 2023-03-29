@@ -7,13 +7,12 @@ Are you practicing self-care? If not, you should be! Self-care does nothing but 
 First clone this repository by copying the SSH key and entering it in your terminal with 'git clone * *paste SSH key* *'. Then navigate to that folder's directory and open it up using your preferred code editor, I prefer Visual Studio Code.
 
 Once you're there you'll need to set up your backend and frontend.\
-This project has a Rails backend and a React frontend.\
-For the **backend**:\
-First run *bundle install* to install all the backend dependencies.\
-To create the database, *rails db:create*.\
-To create the tables and seed our data, *rails db:migrate:seed*.
-> Best practice, when done seeding feel free to comment out the data in the seeds file (located in the db folder) to ensure none of the data is duplicated.
+This project has a Rails backend and a React frontend.
 
+For the **backend**:\
+First make sure you're in the Phase-5-Project directory, run cd Phase-5-Project.\
+Then run *bundle install* to install all the backend dependencies.\
+The database should already be migrated and seeded.\
 Then to run the server, *rails s*.
 
 For the **frontend**:\
