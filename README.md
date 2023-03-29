@@ -7,7 +7,8 @@ Are you practicing self-care? If not, you should be! Self-care does nothing but 
 First clone this repository by copying the SSH key and entering it in your terminal with 'git clone * *paste SSH key* *'. Then navigate to that folder's directory and open it up using your preferred code editor, I prefer Visual Studio Code.
 
 Once you're there you'll need to set up your backend and frontend.\
-This project has a Rails backend and a React frontend.\
+This project has a Rails backend and a React frontend.
+
 For the **backend**:\
 First make sure you're in the Phase-5-Project directory, run cd Phase-5-Project.\
 Then run *bundle install* to install all the backend dependencies.\
