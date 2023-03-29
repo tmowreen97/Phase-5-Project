@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from 'react';
+import { useState, createContext } from 'react';
 import '../src/styles/styles.css';
 import Home from './Home';
 import Login from './Login';
@@ -61,35 +61,6 @@ function App() {
       return data
     } 
   })
-
-
-
-  useEffect(()=> {
-    return(
-      fetch('/categories')
-      .then(resp => resp.json())
-      .then(data => console.log('in useEffect', data))
-
-    )
-  },[])
-
-
-  useQuery('categories', () => {
-    return(
-      axios.get('/categories')
-      .then(resp => resp)
-    )
-  }, {
-    onSuccess: (data) => console.log('in useQuery', data)
-  })
-
-    
-
-
-
-
-
-
 
   return (
     <AppContext.Provider value={{user, setUser, activities, categories}}>
