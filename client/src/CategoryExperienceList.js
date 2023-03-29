@@ -14,12 +14,17 @@ function CategoryExperienceList ({experience}){
 
   return(
     <div>
-      <li key={experience.id} className='experience-list-item'>{experience.comment} -{experience.username}</li>
-      {user.username === experience.username ? <button className='edit-experience-button' onClick={() => setShowEdit(!showEdit)}>{showEdit ? 'Close' : '✎'}</button> : ''}
-      {user.username === experience.username ? <button  className='delete-experience-button' onClick={() => setShowConfirm(!showConfirm)}>🗑</button> : ''}
-      {showEdit && <PopUpEditForm experience={experience} setShowEdit={setShowEdit}/>}
-      {showConfirm &&  <ConfirmDeleteForm setShowConfirm={setShowConfirm} id={experience.id}/>}
+      <div className="experience-list">
+        <li key={experience.id} className='experience-list-item'>{experience.comment} -{experience.username}</li>
+        <div className="experience-buttons">
+          {user.username === experience.username ? <button className='edit-experience-button' onClick={() => setShowEdit(!showEdit)}>{showEdit ? 'Close' : '✎'}</button> : ''}
+          {user.username === experience.username ? <button  className='delete-experience-button' onClick={() => setShowConfirm(!showConfirm)}>🗑</button> : ''}
+        </div>
+      </div>
+        {showEdit && <PopUpEditForm experience={experience} setShowEdit={setShowEdit}/>}
+        {showConfirm &&  <ConfirmDeleteForm setShowConfirm={setShowConfirm} id={experience.id}/>}
     </div>
+    
   )
 }
 export default CategoryExperienceList;

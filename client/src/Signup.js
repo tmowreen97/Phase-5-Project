@@ -35,6 +35,7 @@ function SignUp(){
     }
   }
   )
+  
   function handleSignUp(e){
     e.preventDefault()
     signupUser.mutate(userHash)

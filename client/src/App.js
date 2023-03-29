@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import '../src/styles/styles.css';
 import Home from './Home';
 import Login from './Login';
@@ -48,12 +48,11 @@ function App() {
       })
     )
   }, {
-    retryOnMount: true,
     onSuccess : (data) => {
-      const act = data.map((dat)=> {
+      const act = data.map((categories)=> {
         return(
-          dat.activities.flat().map((acti)=> {
-          return (acti)
+          categories.activities.map((activity)=> {
+          return (activity)
         })
         )
       })
@@ -62,7 +61,35 @@ function App() {
       return data
     } 
   })
-  // console.log(activities)
+
+
+
+  useEffect(()=> {
+    return(
+      fetch('/categories')
+      .then(resp => resp.json())
+      .then(data => console.log('in useEffect', data))
+
+    )
+  },[])
+
+
+  useQuery('categories', () => {
+    return(
+      axios.get('/categories')
+      .then(resp => resp)
+    )
+  }, {
+    onSuccess: (data) => console.log('in useQuery', data)
+  })
+
+    
+
+
+
+
+
+
 
   return (
     <AppContext.Provider value={{user, setUser, activities, categories}}>

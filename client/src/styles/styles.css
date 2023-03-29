@@ -1,8 +1,8 @@
 /* HOME PAGE */
 .home-title{
   padding: 80px;
-  padding-top:225px;
-  padding-left: 90px;
+  padding-top:300px;
+  padding-left: 120px;
   font-family: 'Abril Fatface';
   font-size: 150px;
   font-style: italic;
@@ -16,8 +16,8 @@
 
 .home-title-description{
   font-size:25px;
-  padding-left: 100px;
-  padding-bottom: 370px;
+  padding-left: 120px;
+  padding-bottom: 410px;
 }
 
 .app{
@@ -26,6 +26,7 @@
 
 .why-self-full, .why-self-care, .what-is-self-care{
   padding: 100px;
+  font-size: 20px;
 
 }
 
@@ -152,11 +153,18 @@ padding-bottom: 80px;
   background-color: white;
   margin: 4px;
   font-size: 18px;
-}
 
-.experience-list-item {
-  display: inline-flex;
 }
+/* .edit-experience-button{
+  margin-left: 20px;
+  padding:10px
+  /* display: flex; */
+
+
+/* .experience-list-item {
+  display: inline-flex;
+
+} */
 
 .add-input{
   margin-bottom: 2px;
@@ -176,9 +184,21 @@ padding-bottom: 80px;
 
 .experience-list-item{
   font-size: 20px;
-  margin-right: 8px;
+  /* margin-right: 150px; */
   padding-bottom: 8px;
-  padding-left: 20px;
+  margin-left: 20px;
+  list-style: none;
+  margin-right: 5px;
+  /* margin-bottom: ; */
+}
+
+.experience-list{
+  display: inline-flex;
+  margin-right: 150px;
+}
+
+.experience-buttons{
+  display: flex;
 }
 
 .error-message{
@@ -248,8 +268,8 @@ padding-bottom: 80px;
 .login-box, .signup-box{
   position: relative;
   background-color: #FDF4EA;
-  width:400px;
-  height: 450px;
+  width:500px;
+  height: 550px;
   display: flex;
   align-items: center;
   text-align: center;
@@ -307,9 +327,10 @@ padding-bottom: 80px;
   padding: 8px;
 }
 
-.login-submit:hover,.signup-submit:hover, .sign-up-btn:hover, .login-btn:hover{
+.login-submit:hover,.signup-submit:hover, .sign-up-btn:hover, .login-btn:hover, .login-button:hover, .logout-button:hover{
   background-color: #DFECF8;
 }
+
 
 .errors{
   color: red
@@ -340,8 +361,8 @@ padding-bottom: 80px;
 
 .delete-form{
   position: fixed;
-  top: 50%;
-  bottom: 50%;
+  top: 40%;
+  bottom: 40%;
   right:0;
   left:0;
   /* bottom: 0; */
@@ -433,7 +454,9 @@ padding-bottom: 80px;
 }
 .user-experiences-list{
   margin-left: 20px;
+  padding-bottom: 10px;
   cursor: pointer;
+  margin-right: 150px;
 }
 
 .user-experiences-list:hover{
