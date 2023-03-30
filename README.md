@@ -11,6 +11,9 @@ This project has a Rails backend and a React frontend.
 
 For the **backend**:\
 First make sure you're in the Phase-5-Project directory, run cd Phase-5-Project.\
+You also need postgresql installed. For an OSX device, run *brew install postgresql*. Then run *brew services start postgresql*.\
+For windows machines check out https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-database#install-postgresql. 
+
 Then run *bundle install* to install all the backend dependencies.\
 The database should already be migrated and seeded.\
 Then to run the server, *rails s*.
