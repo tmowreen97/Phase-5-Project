@@ -1,5 +1,5 @@
 import React, { useContext, createContext } from 'react';
-import {useParams, Link} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import { useState } from 'react';
 import { useEditExperience, useDeleteExperience } from './mutations/experienceMutations';
 import { useMutation} from 'react-query';
@@ -50,12 +50,10 @@ const CategoryResources = () => {
       <div className='resource-list'>
         {currentCategory.resources.map((resource)=> {
           return(
-            <div key={resource.id} className='resource-list-item'>
-              <label className='resource-description'>{resource.description} ➤ </label>
-              <Link className='resource-link' to={resource.url}>{resource.url}</Link>
-              </div>
-            
-          )
+            <li className='resource-list-item'>
+              <a className='resource-link'href={resource.url} target="_blank" rel="noreferrer">{resource.description}</a>
+            </li>
+            )
         })}
 
       </div>

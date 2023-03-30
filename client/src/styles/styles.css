@@ -227,6 +227,7 @@ padding-bottom: 80px;
   margin-right: 8px;
   padding-bottom: 8px;
   margin: 5px;
+  list-style-type: '➤';
 }
 .resource-link{
   padding-left: 10px;
@@ -415,14 +416,18 @@ padding-bottom: 80px;
 
 .welcome-image{
   position:absolute;
-  top:8%;
-  max-height: 30%;
+  top:100px;
+  max-height: 20%;
   left:130px;
+}
+.profile-edit-button{
+  position: absolute;
+  right: 100px;
 }
 
 .user-info{
   position: absolute;
-  top:30%;
+  top:25%;
   margin-left: 50px;
   margin-top: 10px;
 }

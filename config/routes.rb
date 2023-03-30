@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :categories, only:[:index, :update, :show, :create]
   resources :activities, only: [:index, :update]
   resources :experiences, only: [:index, :update, :destroy, :create]
-  # resources :users
+  patch '/users/:id', to: 'users#update'
   post "/signup", to: "users#create"
   get "/me", to: "users#show"
   post "/login", to: "sessions#create"

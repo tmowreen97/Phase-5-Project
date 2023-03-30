@@ -1,4 +1,5 @@
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +34,8 @@ function Navigation() {
 
 
   return (
-    <Navbar bg="light" expand="lg">
+    <div>
+    <Navbar bg="light" expand="lg" className='nav-bar' >
       <Container>
         <Navbar.Brand href="/">Self/Full</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -43,10 +45,14 @@ function Navigation() {
             <Nav.Link href="/all-categories">Categories</Nav.Link>
             <Nav.Link href="/all-activities">Activities</Nav.Link>
           </Nav>
+          <Button variant="light" onClick={()=> handleLogout()}>Logout</Button>
         </Navbar.Collapse>
-        <button className='logout-button' onClick={()=> handleLogout()}>Logout</button>
       </Container>
     </Navbar>
+    {/* <button className='logout-button' onClick={()=> handleLogout()}>Logout</button> */}
+
+    </div>
+
   );
 }
 
