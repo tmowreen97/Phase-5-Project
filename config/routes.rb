@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :activities, only: [:index, :update]
   resources :experiences, only: [:index, :update, :destroy, :create]
   patch '/users/:id', to: 'users#update'
+  get '/users', to: 'users#index'
   post "/signup", to: "users#create"
   get "/me", to: "users#show"
   post "/login", to: "sessions#create"

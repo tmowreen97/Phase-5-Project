@@ -443,9 +443,19 @@ padding-bottom: 80px;
 
 }
 
+.image-bio{
+  margin-top: 20px;
+  display: flex;
+}
+
+.profile-image{
+  width: 20%;
+  margin-right: 100px;
+}
+
 .profile-bio{
   padding-top:40px ;
-  margin-right: 40% ;
+  margin-right: 150px ;
   font-size: 18px;
 }
 
@@ -473,8 +483,42 @@ padding-bottom: 80px;
 }
 
 
+/* EDIT PROFILE */
+/* .edit-profile-form{
+  display: flex;
+
+} */
+
+.profile-edit {
+  min-width: 100%;
+  height: 70vh;
+  /* border: dotted #f55a00 5vw; */
+  /* border: 1px solid red; */
+  margin: 0vw;
+  padding: 5vw;
+  position: relative;
+  /* position:relative for .prevBtn and .nextBtn position:absolute; */
+}
+.profile-edit input,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+  margin: 0.9vw 0;
+  border: 0;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.profile-edit textarea {
+  height: 15vh;
+}
 
 
+.image-carousel{
+  width: 10%;
+
+}
 /* ACTIVITIES */
 
 .all-activities{
