@@ -455,7 +455,7 @@ padding-bottom: 80px;
 
 .profile-bio{
   padding-top:40px ;
-  margin-right: 150px ;
+  margin-right: 180px ;
   font-size: 18px;
 }
 
@@ -501,7 +501,7 @@ padding-bottom: 80px;
 }
 .profile-edit input,
 textarea {
-  display: block;
+  display:inline-block;
   width: 100%;
   padding: 0.5rem 0.8rem 0.5rem 0.8rem;
   margin: 0.9vw 0;
@@ -513,11 +513,19 @@ textarea {
 .profile-edit textarea {
   height: 15vh;
 }
+.image-change{
+  display: flex;
+  justify-content: center;
+}
 
 
 .image-carousel{
-  width: 10%;
+  margin-left: 40px;
+  width: 30%;
+}
 
+.edit-profile-image{
+  width:30%
 }
 /* ACTIVITIES */
 

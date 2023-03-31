@@ -44,7 +44,6 @@ function Navigation() {
             <Nav.Link href="/profile">Profile</Nav.Link>
             <Nav.Link href="/all-categories">Categories</Nav.Link>
             <Nav.Link href="/all-activities">Activities</Nav.Link>
-            <Nav.Link href="/images">Images</Nav.Link>
           </Nav>
           <Button variant="light" onClick={()=> handleLogout()}>Logout</Button>
         </Navbar.Collapse>

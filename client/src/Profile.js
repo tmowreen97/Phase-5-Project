@@ -5,18 +5,24 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "./App";
 import ImageGallery from 'react-image-gallery';
 import axios from "axios";
+import Images from "./Images";
+import { Country, State, City }  from 'country-state-city';
 
 
 function Profile(){
   const navigate = useNavigate()
   const {user, setUser} = useContext(AppContext)
   const [showEdit, setShowEdit] = useState(false)
+  const [showImages, setShowImages]= useState(false)
   const [editUser, setEditUser] = useState({
+    image: user.image,
     username: user.username,
     bio: user.bio,
   })
 
-  console.log('edit', showEdit)
+  console.log(State.getStatesOfCountry('US'))
+  console.log(City.getCitiesOfState('US', 'NY'))
+
 
   const profileImages = ['https://cdn-icons-png.flaticon.com/512/4140/4140073.png','https://cdn-icons-png.flaticon.com/512/4139/4139951.png','https://cdn-icons-png.flaticon.com/512/4140/4140074.png','https://cdn-icons-png.flaticon.com/512/6833/6833591.png','https://cdn-icons-png.flaticon.com/512/6998/6998135.png','https://cdn-icons-png.flaticon.com/512/6998/6998040.png', 'https://cdn-icons-png.flaticon.com/512/6998/6998031.png','https://cdn-icons-png.flaticon.com/512/6998/6998065.png','https://cdn-icons-png.flaticon.com/512/9193/9193915.png','https://cdn-icons-png.flaticon.com/512/4625/4625826.png','https://cdn-icons-png.flaticon.com/512/4140/4140047.png', 'https://cdn-icons-png.flaticon.com/512/9764/9764588.png', 'https://cdn-icons-png.flaticon.com/512/4140/4140076.png', 'https://cdn-icons-png.flaticon.com/512/4140/4140072.png', 'https://cdn-icons-png.flaticon.com/512/4140/4140057.png', 'https://cdn-icons-png.flaticon.com/512/4140/4140054.png', 'https://cdn-icons-png.flaticon.com/512/236/236831.png', 'https://cdn-icons-png.flaticon.com/512/201/201634.png', 'https://cdn-icons-png.flaticon.com/512/3135/3135789.png', 'https://cdn-icons-png.flaticon.com/512/6997/6997662.png', 'https://cdn-icons-png.flaticon.com/512/428/428933.png','https://cdn-icons-png.flaticon.com/512/219/219970.png', 'https://cdn-icons-png.flaticon.com/512/236/236832.png', 'https://cdn-icons-png.flaticon.com/512/1999/1999625.png', 'https://cdn-icons-png.flaticon.com/512/219/219969.png']
 
@@ -39,12 +45,16 @@ function Profile(){
       show={showEdit} 
       backdrop="static"
       keyboard={false} 
+      showImages={showImages}
+      setShowImages={setShowImages}
       editUser={editUser} 
       setEditUser={setEditUser} 
       handleEdit={handleEdit} 
       user={user} 
       onHide={()=> {
+
         setEditUser({
+          image: user.image,
           username: user.username,
           bio: user.bio,
         })
@@ -79,6 +89,7 @@ export default Profile;
 
 
 const ProfileEditForm = (props) => {
+
   return(
     <Modal
       {...props}
@@ -94,8 +105,13 @@ const ProfileEditForm = (props) => {
       <Modal.Body>
       <div className="profile-edit">
         <form className="edit-profile-form">
-          <label>Profile Picture:</label>
-          <button>Select New Picture</button>
+          <ul className="image-change">
+          <img className='edit-profile-image' src={props.editUser.image} onClick={()=> props.setShowImages(!props.showImages)}/>
+          {props.showImages && <Images setEditUser={props.setEditUser} setShowImages={props.setShowImages}/>}
+          </ul>
+          {/* <ul>
+            <select></select>
+          </ul> */}
           <label>Username:</label>
           <input
           className="username-input"
