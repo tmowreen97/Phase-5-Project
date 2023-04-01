@@ -2,6 +2,8 @@ import React from "react";
 import { useContext, useState } from "react";
 import { AppContext } from "./App";
 import { CategoryExperienceContext } from "./CategoryShow";
+import Button from "react-bootstrap/esm/Button";
+import Modal from "react-bootstrap/esm/Modal"
 
 
 
@@ -15,14 +17,17 @@ function CategoryExperienceList ({experience}){
   return(
     <div>
       <div className="experience-list">
-        <li key={experience.id} className='experience-list-item'>{experience.comment} -{experience.username}</li>
-        <div className="experience-buttons">
-          {user.username === experience.username ? <button className='edit-experience-button' onClick={() => setShowEdit(!showEdit)}>{showEdit ? 'Close' : '✎'}</button> : ''}
-          {user.username === experience.username ? <button  className='delete-experience-button' onClick={() => setShowConfirm(!showConfirm)}>🗑</button> : ''}
-        </div>
+        <li key={experience.id} className='experience-list-item'>
+        <span className='experience-list-comment'>{experience.comment} -{experience.username}</span>
+        {user.username === experience.username ? <Button variant='light'className='edit-experience-button' onClick={() => setShowEdit(!showEdit)}>{showEdit ? 'Close' : '✎'}</Button> : ''}
+          {user.username === experience.username ? <Button  variant='light'className='delete-experience-button' onClick={() => setShowConfirm(!showConfirm)}>🗑</Button> : ''}
+        </li>
+        {/* <div className="experience-buttons"> */}
+
+        {/* </div> */}
       </div>
         {showEdit && <PopUpEditForm experience={experience} setShowEdit={setShowEdit}/>}
-        {showConfirm &&  <ConfirmDeleteForm setShowConfirm={setShowConfirm} id={experience.id}/>}
+        {showConfirm &&  <ConfirmDeleteForm setShowConfirm={setShowConfirm} showConfirm={showConfirm} id={experience.id}/>}
     </div>
     
   )
@@ -48,29 +53,39 @@ const PopUpEditForm= ({experience,setShowEdit}) => {
         })
       }}
       />
-      <button className='edit-button' onClick={(e)=>{ 
+      <Button variant='dark' className='edit-button' onClick={(e)=>{ 
         setShowEdit(false)
         handleEdit(e, editComment)
-        }}>Submit</button>
+        }}>Submit</Button>
     </form>
   )
 }
 
-const ConfirmDeleteForm= ({setShowConfirm, id})=> {
+const ConfirmDeleteForm= ({setShowConfirm, id, showConfirm})=> {
   //Grab callback func from useContext
   const {handleDelete} = useContext(CategoryExperienceContext)
 
   return(
-    <div className='delete-form'>
-      <div className='delete-confirm'>
-        <h5>Are you sure you want to delete?</h5>
-        <button className='confirm-button' onClick={()=> setShowConfirm(false)}>No</button>
-        <button className='confirm-button' type='submit' onClick={(e)=> {
+      <Modal
+      show={showConfirm}
+      // onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Delete Experience</Modal.Title>
+      </Modal.Header>
+      <Modal.Body >
+        Are you sure you want to delete?
+      </Modal.Body>
+      <Modal.Footer >
+      <Button variant='dark' className='confirm-button' onClick={()=> setShowConfirm(false)}>No</Button>
+      <Button variant='dark' className='confirm-button' type='submit' onClick={(e)=> {
           setShowConfirm(false)
           handleDelete(e,id)
-          }}>Yes</button>
-      </div>
-    </div>
-
+        }}>Yes</Button>
+      </Modal.Footer>
+    </Modal>
   )
 }

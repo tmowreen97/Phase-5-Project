@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "./App";
+import Button from "react-bootstrap/esm/Button";
 
 function Home(){
   const navigate = useNavigate()
@@ -11,7 +12,7 @@ function Home(){
   return(
     <div>
       <div className="home-page">
-        {!user && <button className='login-button' onClick={(e)=> handleClick(e)}>Login</button>}
+        {!user && <Button variant='light' className='login-button' onClick={(e)=> handleClick(e)}>Login</Button>}
         <h1 className="home-title">Self/Full</h1>
         <p className="home-title-description">The place for all your self-care needs.</p>      
       </div>

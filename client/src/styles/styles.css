@@ -148,23 +148,7 @@ padding-bottom: 80px;
 }
 
 /* CATEGORY SHOW EXPERIENCES */
-.edit-experience-button, .delete-experience-button, .submit-add, .edit-button{
-  border: none;
-  background-color: white;
-  margin: 4px;
-  font-size: 18px;
 
-}
-/* .edit-experience-button{
-  margin-left: 20px;
-  padding:10px
-  /* display: flex; */
-
-
-/* .experience-list-item {
-  display: inline-flex;
-
-} */
 
 .add-input{
   margin-bottom: 2px;
@@ -180,26 +164,31 @@ padding-bottom: 80px;
 .category-experiences{
   margin-top: 50px;
   padding-left: 150px;
+  font-size: 18px;
 }
 
 .experience-list-item{
   font-size: 20px;
-  /* margin-right: 150px; */
-  padding-bottom: 8px;
+  padding: 8px;
   margin-left: 20px;
-  list-style: none;
+  list-style: '✦';
   margin-right: 5px;
-  /* margin-bottom: ; */
 }
-
+.experience-list-comment{
+  padding-right: 20px;
+  padding-left: 20px;
+}
 .experience-list{
-  display: inline-flex;
+  /* display: inline-block; */
+  position: relative;
   margin-right: 150px;
 }
 
-.experience-buttons{
-  display: flex;
+.edit-experience-button, .add-experience-button{
+  margin: auto;
 }
+
+
 
 .error-message{
   display: flex;
@@ -240,7 +229,8 @@ padding-bottom: 80px;
 .login-button, .logout-button{
   border: none;
   position: absolute;
-  right: 0px;
+  top:20px;
+  right: 20px;
   width: 100px;
   height: 50px;
   border: none;
@@ -328,7 +318,7 @@ padding-bottom: 80px;
   padding: 8px;
 }
 
-.login-submit:hover,.signup-submit:hover, .sign-up-btn:hover, .login-btn:hover, .login-button:hover, .logout-button:hover{
+.login-submit:hover,.signup-submit:hover, .sign-up-btn:hover, .login-btn:hover{
   background-color: #DFECF8;
 }
 
@@ -361,25 +351,12 @@ padding-bottom: 80px;
 }
 
 .delete-form{
-  position: fixed;
-  top: 40%;
-  bottom: 40%;
-  right:0;
-  left:0;
-  /* bottom: 0; */
+  justify-content: center;
   align-items: center;
 }
 
 .delete-confirm{
-  background-color: rgb(245, 201, 213);
-  border-radius: 8px;
-  margin-left: 400px;
-  margin-right: 400px;
-  padding-top: 80px ;
-  padding-bottom: 80px ;
-  text-align: center;
   align-items: center;
-  justify-content: center;
 
 }
 /* 
@@ -399,7 +376,7 @@ padding-bottom: 80px;
   margin-top: 10px;
   margin-bottom: 15px;
   margin-left: 20px;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .submit-add:hover, .add-button:hover{
@@ -409,69 +386,96 @@ padding-bottom: 80px;
 
 /* PROFILE */
 
-
+.nav-bar{
+  height:90px;
+}
 .profile{
   margin:100px;
 }
 
 .welcome-image{
   position:absolute;
-  top:100px;
+  top:150px;
   max-height: 20%;
   left:130px;
 }
 .profile-edit-button{
   position: absolute;
-  right: 100px;
+  top:230px;
+  right: 145px;
 }
 
 .user-info{
   position: absolute;
-  top:25%;
+  top:30%;
   margin-left: 50px;
   margin-top: 10px;
 }
 
 .welcome-statement{
   display: flex;
+  margin-top: 15px;
 }
 
 .welcome-username{
   font-style: italic;
   margin-left: 12px;
-  font-size: 50px;;
+  font-size: 60px;;
 
 }
 
 .image-bio{
-  margin-top: 20px;
+  padding-top: 180px;
+  margin-right: 230px;
   display: flex;
+  align-items: center;
+  margin-left: 130px;
+  padding-bottom: 180px;
 }
 
 .profile-image{
   width: 20%;
-  margin-right: 100px;
+  /* margin-right: 200px; */
+  display: flex;
+  position: absolute;
 }
 
 .profile-bio{
-  padding-top:40px ;
-  margin-right: 180px ;
+  position: relative;
+  padding-top:10px ;
+  margin-left: 400px ;
   font-size: 18px;
 }
 
+.bio{
+  padding-left: 10px;
+}
+
 .welcome{
-  font-size: 50px;;
+  font-size: 60px;
 }
 
 .user-experiences{
   font-size: 18px;
+  /* margin-top: 130px; */
+  margin-left: 100px;
+  align-items: center;
+  padding-bottom: 200px;
+  margin-right: 230px;
   
 }
 .user-experiences-list{
-  margin-left: 20px;
-  padding-bottom: 10px;
+  list-style-type: '➤';
+  padding-left: 20px;
+  padding: 12px;
+
+}
+
+.user-experiences-list-item{
+  position: relative;
+  padding-left: 12px;
   cursor: pointer;
-  margin-right: 150px;
+
 }
 
 .user-experiences-list:hover{
@@ -480,6 +484,7 @@ padding-bottom: 80px;
 
 .user-experiences-title{
   margin-top: 70px;
+  margin-bottom: 20px;
 }
 
 
@@ -505,10 +510,16 @@ textarea {
   width: 100%;
   padding: 0.5rem 0.8rem 0.5rem 0.8rem;
   margin: 0.9vw 0;
+  padding-bottom: 5px;
   border: 0;
   border-radius: 5px;
   font-size: 20px;
 }
+.bio-textarea{
+  height: auto;
+  padding-bottom:100px
+}
+
 
 .profile-edit textarea {
   height: 15vh;
@@ -520,12 +531,61 @@ textarea {
 
 
 .image-carousel{
-  margin-left: 40px;
+  margin-left: 30px;
   width: 30%;
+  max-height: 80%;
 }
 
 .edit-profile-image{
   width:30%
+}
+
+.edit-profile-image:hover {
+  transition-duration: 0.3s;
+  transform: scale(1.25);
+  cursor: pointer;
+}
+
+.edit-image-choose:hover{
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.modal-form{
+  font-family: Lora;
+}
+
+.modal-title{
+
+  justify-content: center;
+}
+
+
+  /* box-shadow: 0 2px 20px;
+
+
+
+.edit-profile-image {
+  opacity: 1;
+  width: 40%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.edit-profile-image:hover {
+  opacity: 0.3;
+}
+
+.edit-msg {
+  opacity: 1;
+}
+
+.text {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
 }
 /* ACTIVITIES */
 

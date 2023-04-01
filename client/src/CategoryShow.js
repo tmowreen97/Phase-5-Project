@@ -6,6 +6,7 @@ import { useMutation} from 'react-query';
 import { AppContext } from './App';
 import CategoryExperienceList from './CategoryExperienceList';
 import axios from 'axios';
+import Button from 'react-bootstrap/esm/Button';
 
 export const CategoryContext = createContext()
 export const CategoryExperienceContext = createContext()
@@ -167,10 +168,10 @@ const CategoryExperiences = () => {
     <div className='category-experiences'>
       <h4 className='experiences-title'>Experiences:</h4>
       {showAddForm && <AddForm/>}
-      <button className='add-button' onClick={() => {
+      <Button size='lg' variant='light' className='add-button' onClick={() => {
         setErrors(null)
         setShowAddForm(!showAddForm)
-        }}>{showAddForm ? 'Close' : 'Add Experience'}</button>
+        }}>{showAddForm ? 'Close' : 'Add Experience'}</Button>
       {errors ? <p className='error-message'>{errors}</p> : ''}
       {experiences.map((experience)=>{
         return(
@@ -198,7 +199,7 @@ const AddForm= () => {
           onChange={(e)=> setNewExperience(e.target.value)}
           className='add-input'
         />
-        <button className='submit-add' type='submit'>Submit</button>
+        <Button variant='dark' className='submit-add' type='submit'>Submit</Button>
       </form>
     </div>
   )

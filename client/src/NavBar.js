@@ -34,7 +34,7 @@ function Navigation() {
 
 
   return (
-    <div>
+    <div className='nav-bar'>
     <Navbar bg="light" expand="lg" className='nav-bar' >
       <Container>
         <Navbar.Brand href="/">Self/Full</Navbar.Brand>
@@ -45,7 +45,7 @@ function Navigation() {
             <Nav.Link href="/all-categories">Categories</Nav.Link>
             <Nav.Link href="/all-activities">Activities</Nav.Link>
           </Nav>
-          <Button variant="light" onClick={()=> handleLogout()}>Logout</Button>
+          <Button variant="light" className='logout-button' onClick={()=> handleLogout()}>Logout</Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>

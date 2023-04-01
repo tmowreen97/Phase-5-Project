@@ -40,7 +40,7 @@ function Images({setEditUser, setShowImages}){
     >
     {imageArray.map((image)=> {
       return(
-        <Carousel.Item>
+        <Carousel.Item className='edit-image-choose'>
           <img 
           className="d-block w-100"
           src={image.original}

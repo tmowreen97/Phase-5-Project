@@ -3,7 +3,6 @@ import Button from "react-bootstrap/esm/Button";
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "./App";
-import ImageGallery from 'react-image-gallery';
 import axios from "axios";
 import Images from "./Images";
 import { Country, State, City }  from 'country-state-city';
@@ -52,13 +51,14 @@ function Profile(){
       handleEdit={handleEdit} 
       user={user} 
       onHide={()=> {
-
+        //Set all values back to default
         setEditUser({
           image: user.image,
           username: user.username,
           bio: user.bio,
         })
-        setShowEdit(!showEdit)
+        setShowImages(false)
+        setShowEdit(false)
         }}/>
       <img src={'https://media.istockphoto.com/id/1218481548/vector/cute-cat-waving-paw-cartoon-vector-illustration.jpg?s=170667a&w=0&k=20&c=yw-bgn7EaMdGFE6AuKz-FS76Oa7G2HW5JBpEvYpJYd8='} alt='welcome' className="welcome-image"/>
       <div className="user-info">
@@ -68,14 +68,23 @@ function Profile(){
         </div>
         <div className="image-bio">
           <img className='profile-image' src={user.image}/>
-          <p className="profile-bio">{user.bio}</p>
+          <div className="profile-bio">
+              <h4>Bio:</h4>
+              <p className="bio">{user.bio}</p>
+
+          </div>
+          
         </div>
         
         <div className="user-experiences">
           <h4 className="user-experiences-title">Your Experiences:</h4>
           { user.experiences.length===0 ? <p>You have no experiences yet ˙◠˙. Get your self-care on!</p> :
           user.experiences.map((experience)=> {
-            return( <li key={experience.id} title="Click to navigate to category" onClick={()=> navigate(`/category/${experience.category_id}`)}className="user-experiences-list">{experience.comment} -{experience.category}</li>)
+            return( 
+            <li key={experience.id} className="user-experiences-list">
+              <span className='user-experiences-list-item'title="Click to navigate to category" onClick={()=> navigate(`/category/${experience.category_id}`)} >{experience.comment} -{experience.category}</span>
+            </li>
+            )
           })}
         </div>
       </div>
@@ -96,9 +105,10 @@ const ProfileEditForm = (props) => {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      className="modal-form"
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id="contained-modal-title-vcenter" className="modal-title">
           Edit Profile
         </Modal.Title>
       </Modal.Header>
@@ -106,7 +116,7 @@ const ProfileEditForm = (props) => {
       <div className="profile-edit">
         <form className="edit-profile-form">
           <ul className="image-change">
-          <img className='edit-profile-image' src={props.editUser.image} onClick={()=> props.setShowImages(!props.showImages)}/>
+            <img className='edit-profile-image' src={props.editUser.image} onClick={()=> props.setShowImages(!props.showImages)}/>
           {props.showImages && <Images setEditUser={props.setEditUser} setShowImages={props.setShowImages}/>}
           </ul>
           {/* <ul>
@@ -114,6 +124,7 @@ const ProfileEditForm = (props) => {
           </ul> */}
           <label>Username:</label>
           <input
+           placeholder="Username"
           className="username-input"
           type='text'
           value={props.editUser.username}
@@ -125,6 +136,8 @@ const ProfileEditForm = (props) => {
           />
           <label>Bio:</label>
           <textarea
+          maxLength={400}
+          placeholder="Bio; 400 character limit"
           className="bio-textarea"
           type='textarea'
           rows={8}
@@ -140,7 +153,7 @@ const ProfileEditForm = (props) => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={(e) => props.handleEdit(e, props.editUser)}>Submit</Button>
+        <Button variant='light' onClick={(e) => props.handleEdit(e, props.editUser)}>Submit</Button>
       </Modal.Footer>
     </Modal>
   )
