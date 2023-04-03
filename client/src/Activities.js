@@ -143,7 +143,7 @@ function Activities(){
     }
    
 
-  // console.log('ascending', ascending)
+  console.log('allActivities', allActivities)
 
   return(
     <div className="all-activities">
@@ -181,7 +181,7 @@ function Activities(){
       </div>
         {activities && allActivities.filter((activity)=> activity.name.includes(search)).map((activity)=> {
           return(
-            <li key={activity.id} className="all-activities-list">{activity.name} -{activity.category}</li>
+            <li key={activity.id} className="all-activities-list" data-title={activity.description}>{activity.name} -{activity.category}</li>
           )
         })} 
       </div>

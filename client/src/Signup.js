@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "./App";
 import { useMutation } from "react-query";
+import { State, City }  from 'country-state-city';
+
 
 function SignUp(){
 
@@ -12,9 +14,12 @@ function SignUp(){
     username: "",
     password: "",
     password_confirmation: "",
+    state:"",
+    city:"",
     bio: ""
   })
   const [errors, setErrors] = useState([])
+  const listOfStates = State.getStatesOfCountry('US')
 
 
   const signupUser = useMutation((user_data)=> {
@@ -82,6 +87,31 @@ function SignUp(){
               return {...prevState, password_confirmation: e.target.value}
             })}/>
           </div>
+          <div className="state-box">
+            <label>📌</label>
+           <select className='state-select' onChange={(e)=> setUserHash(prevState => {
+              return {...prevState, state:e.target.value }
+            })}>
+              <option value="" selected disabled hidden>Select State</option>
+              {listOfStates.map((state)=> {
+                return <option>{state.isoCode}</option>
+              })}
+            </select>
+          
+          
+          {userHash.state && <select className="city-select" onChange={(e)=> setUserHash(prevState => {
+              return {...prevState, city:e.target.value }
+            })}>
+            <option value="" selected disabled hidden>Select City</option>
+            {City.getCitiesOfState('US', userHash.state).map((city)=> {
+              return <option>{city.name}</option>
+            })}
+
+
+
+
+          </select>}
+          </div>
           <div className="input-box">
             <label>💬</label>
             <input 
@@ -101,7 +131,7 @@ function SignUp(){
         
         {errors && errors.map((error)=> {
           return(
-            <p className="errors">{error}</p>
+            <ul className="errors">{error}</ul>
           )
         })
         }   

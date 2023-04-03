@@ -11,7 +11,6 @@ import Categories from './Categories';
 import Activities from './Activities';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import Images from './Images';
 
 // useQuery is the hook for all data fetching needs
 // takes two arguments, first one is a key second is a function that returns a promise
@@ -68,14 +67,12 @@ function App() {
       <div className="app">
       {user && <Navigation/>}
       <Routes>
-        <Route element={<Login/>} path="/login"/>
-        <Route element={<SignUp/>} path="/signup"/>
+        {!user && <Route element={<Login/>} path="/login"/>}
+        {!user && <Route element={<SignUp/>} path="/signup"/>}
         {user && <Route element={<Profile/>} path="/profile"/>}
         {user && categories && <Route element={<Categories/>} path="/all-categories"/>}
         {user && categories && <Route element={<CategoryShow/>} path="/category/:id"/>}
         {user && activities && <Route element={<Activities/>} path="/all-activities"/>}
-        {user && activities && <Route element={<Images/>} path="/images"/>}
-
         <Route element={<Home/>} exact path="/"/>
       </Routes>
       </div>

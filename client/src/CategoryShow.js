@@ -71,7 +71,7 @@ const CategoryActivities = () => {
           <h4 className='activities-title'>Activities:</h4>
           {currentCategory.activities.map((activity)=> {
             return(
-              <li key={activity.id} className='activity-list-item'>{activity.name}</li>
+              <li key={activity.id} className='activity-list-item' data-title={activity.description}>{activity.name}</li>
             )
           })}
     </div>
@@ -192,7 +192,8 @@ const AddForm= () => {
   return(
     <div className='add-form'>
       <form onSubmit={(e)=> handleAdd(e, newExperience)}>
-        <input
+        <textarea
+          rows={5}
           type= 'text'
           placeholder='Enter new experience...'
           value={newExperience}

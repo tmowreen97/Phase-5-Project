@@ -45,6 +45,7 @@ function Images({setEditUser, setShowImages}){
           className="d-block w-100"
           src={image.original}
           alt={image.orginalAlt}
+          title='Click to select'
           onClick={(e)=> {
             setShowImages(false)
             setEditUser((prevState)=> {

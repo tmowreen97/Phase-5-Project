@@ -16,7 +16,7 @@
 
 .home-title-description{
   font-size:25px;
-  padding-left: 120px;
+  padding-left: 140px;
   padding-bottom: 410px;
 }
 
@@ -34,17 +34,26 @@ h2{
   padding-bottom: 20px;
 }
 
+.scroll{
+  position: absolute;
+  max-width: 15%;
+  max-height: 10%;
+  opacity: 0.6;
+  top: 874px;
+  right: 47%;
+}
+
 .what-is-self-care-image{
   position: absolute;
-  left: 70px;
-  top: 1150px;
+  left: 185px;
+  top: 1200px;
   max-height: 60%;
 
 }
 
 .what-is{
   position: absolute;
-  left: 750px;
+  left: 790px;
   /* right: 30px; */
   top:1300px;
   margin-right: 200px;
@@ -58,28 +67,44 @@ h2{
 
 .why-self-care-image{
   position: absolute;
-  top: 1950px;
-  max-height:40%;
+  top: 1965px;
+  max-height:50%;
   max-width: 50%;
-  right: 200px;
+  right: 195px;
+  overflow: hidden;
+  border-radius: 50%;
 }
+
 
 .why{
   position: absolute;
-  top: 2050px;
-  margin-right:700px;
-  left: 150px;
+  top: 2075px;
+  margin-right:745px;
+  left: 250px;
 
 }
 
 .why-self{
   position: absolute;
-  top: 2800px;
-  left: 180px;
-  margin-right: 500px;
-  padding-bottom: 400px;
+  top: 2850px;
+  left: 250px;
+  margin-right: 700px;
+  padding-bottom: 300px;
   align-items: center;
+  
 }
+
+.why-self-full-image{
+  position: absolute;
+  top: 2750px;
+  right: 25px;
+  max-height: 70%;
+  max-width: 50%;
+  transform: rotate(20deg);
+  margin-right: 80px;
+}
+
+
 
 /* CATEGORY ALL */
 
@@ -133,10 +158,34 @@ padding-bottom: 80px;
 
 .activity-list-item{
   list-style-type: '🖤 ';
-  list-style-position: outside;
+  margin-bottom: 8px;
   padding-left: 20px;
   padding-bottom: 10px;
   font-size: 20px;
+
+}
+
+.activity-list-item:hover{
+  cursor:help;
+}
+[data-title]:hover:after {
+  visibility:visible;
+}
+
+[data-title]:after {
+  content: attr(data-title);
+  transition: 0s ease-in 0.5s; 
+  background-color:rgba(252, 252, 252, 0.938);  
+  box-shadow: 0px 0px 10px #2222224f;    
+  color:black;
+  font-size: 16px;
+  position: absolute;
+  padding: 8px;
+  padding-top: 5px;
+  margin-right: 200px;
+  margin-left: 12px;
+  /* margin-right: 500px; */
+  visibility: hidden;
 }
 
 .activities-title, .category-description-title{
@@ -151,14 +200,14 @@ padding-bottom: 80px;
 
 
 .add-input{
-  margin-bottom: 2px;
+  /* margin-bottom: 2px; */
   margin-right: 5px;
   margin-top: 15px;
   margin-left: 20px;
   width: 40%;
   font-size: 18px;
   
-  padding: 5px;;
+  /* padding: 5px;; */
 }
 
 .category-experiences{
@@ -302,6 +351,20 @@ padding-bottom: 80px;
   width: 85%;
 
 } 
+.state-box{
+  margin: 10px
+}
+
+.state-select{
+  margin-left: 10px;
+  padding: 3px;
+  width:40%;
+  margin-right: 10px;
+}
+.city-select{
+  width:45%;
+  padding: 3px;
+}
 
 .login-submit, .signup-submit{
   background-color: white;
@@ -324,7 +387,10 @@ padding-bottom: 80px;
 
 
 .errors{
-  color: red
+  font-weight: bold;
+  color: red;
+  padding: -15px;
+  margin: 0px
 }
 
 .bio-input{
@@ -359,21 +425,15 @@ padding-bottom: 80px;
   align-items: center;
 
 }
-/* 
-.submit-add, .edit-button{
-  border: none;
-  background-color: white;
-  padding: 5px;
-  margin:2px;
-  font-size: 14px;
-} */
+
+.experiences-title{
+  margin-bottom: 20px;
+}
 
 .add-button{
   border: none;
   background-color: white;
   padding: 10px;
-  margin: 2px;
-  margin-top: 10px;
   margin-bottom: 15px;
   margin-left: 20px;
   font-size: 20px;
@@ -389,6 +449,26 @@ padding-bottom: 80px;
 .nav-bar{
   height:90px;
 }
+.nav-bar a{
+  color: black;
+  text-decoration:none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: .30rem;
+  margin-right: 40px;
+}
+
+.nav-bar a:hover{
+  background-color: #c4dbf18e;;
+  color: white
+}
+
+.active{
+  font-style: italic;
+  font-weight:600;
+}
+
 .profile{
   margin:100px;
 }
@@ -422,6 +502,11 @@ padding-bottom: 80px;
   margin-left: 12px;
   font-size: 60px;;
 
+}
+
+.profile-location{
+  font-style: italic;
+  margin-left: 5px;
 }
 
 .image-bio{
@@ -520,6 +605,14 @@ textarea {
   padding-bottom:100px
 }
 
+.edit-state-select{
+  margin-top: 15px;
+  padding: 5px;
+  margin-right:10px
+}
+.edit-city-select{
+  padding: 5px;
+}
 
 .profile-edit textarea {
   height: 15vh;
@@ -534,6 +627,9 @@ textarea {
   margin-left: 30px;
   width: 30%;
   max-height: 80%;
+}
+.image-carousel:hover{
+  transform: scale(1.25);
 }
 
 .edit-profile-image{
@@ -611,8 +707,10 @@ textarea {
 .all-activities-list{
   padding: 5px;
   margin-left:100px ;
-  font-size: 18px;
+  margin-bottom: 8px;
+  font-size: 20px;
   margin-right: 80px;
+  cursor: help;
 }
 
 .search-button{

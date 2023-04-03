@@ -1,5 +1,5 @@
 class CategoryActivitiesSerializer < ActiveModel::Serializer
-  attributes :id, :name, :category
+  attributes :id, :name, :description, :category
 
   def category
     object.category.name

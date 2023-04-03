@@ -40,12 +40,10 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
   end
 
   
-
-
   private
 
   def user_params
-    params.permit(:username, :password, :password_confirmation, :bio, :image)
+    params.permit(:username, :password, :password_confirmation, :bio, :image, :state, :city)
   end
 
   def render_unprocessable_entity invalid

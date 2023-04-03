@@ -32,7 +32,6 @@ function Navigation() {
     logoutUser.mutate()
   }
 
-
   return (
     <div className='nav-bar'>
     <Navbar bg="light" expand="lg" className='nav-bar' >
@@ -41,19 +40,32 @@ function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link href="/all-categories">Categories</Nav.Link>
-            <Nav.Link href="/all-activities">Activities</Nav.Link>
+            <NavLink className='nav-link' href="/profile">Profile</NavLink>
+            <NavLink className='nav-link' href="/all-categories">Categories</NavLink>
+            <NavLink className='nav-link' href="/all-activities">Activities</NavLink>
           </Nav>
           <Button variant="light" className='logout-button' onClick={()=> handleLogout()}>Logout</Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-    {/* <button className='logout-button' onClick={()=> handleLogout()}>Logout</button> */}
-
     </div>
 
   );
 }
 
+
+
 export default Navigation;
+
+function NavLink({ href, children}){
+  const path= window.location.pathname
+  return (
+    <li className={path === href ? "active" : ""}>
+      <a href={href}>
+        {children}
+      </a>
+    </li>
+  )
+
+}
+
