@@ -38,9 +38,11 @@ function Images({setEditUser, setShowImages}){
     interval={null}
     slide={false}
     >
-    {imageArray.map((image)=> {
+    {imageArray && imageArray.map((image)=> {
+      // debugger
+      console.log(image)
       return(
-        <Carousel.Item className='edit-image-choose'>
+        <Carousel.Item key={image.original} className='edit-image-choose'>
           <img 
           className="d-block w-100"
           src={image.original}

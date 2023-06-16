@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2023_04_03_050423) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "img"
+    t.string "resources", default: [], array: true
   end
 
   create_table "experiences", force: :cascade do |t|

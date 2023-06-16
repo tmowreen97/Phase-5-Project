@@ -149,7 +149,7 @@ const ProfileEditForm = (props) => {
             })}>
             <option value="" selected disabled hidden>{props.editUser.state}</option>
               {listOfStates.map((state)=> {
-                return <option>{state.isoCode}</option>
+                return <option key={state.id}>{state.isoCode}</option>
               })}
           </select>
           {props.user.state && <select className="edit-city-select" onChange={(e)=> props.setEditUser(prevState => {
@@ -157,7 +157,7 @@ const ProfileEditForm = (props) => {
             })}>
             <option value="" selected disabled hidden>{props.editUser.city}</option>
             {City.getCitiesOfState('US', props.editUser.state).map((city)=> {
-              return <option>{city.name}</option>
+              return <option key={city.id}>{city.name}</option>
             })}
           </select>}
           </ul>
@@ -179,7 +179,7 @@ const ProfileEditForm = (props) => {
         </form>
         {props.errors && props.errors.map((error)=> {
           return(
-            <p className="errors">{error}</p>
+            <p key={error} className="errors">{error}</p>
           )
         })
         }
