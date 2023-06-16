@@ -17,7 +17,7 @@ For windows machines check out https://learn.microsoft.com/en-us/windows/wsl/tut
 Then run *bundle install* to install all the backend dependencies.\
 To reset the database, run *rails db:drop* then *rails db:create*.\
 Then migrate the necessary files by running *rails db:migrate*.\
-Lastly, to add all the data to our database, run *rails db:seed*.\
+Lastly, to add all the data to our database, run *rails db:seed*.
 
 You're ready to run the server! Run *rails s*.
 
