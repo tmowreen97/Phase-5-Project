@@ -15,8 +15,11 @@ You also need postgresql installed. For an OSX device, run *brew install postgre
 For windows machines check out https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-database#install-postgresql. 
 
 Then run *bundle install* to install all the backend dependencies.\
-The database should already be migrated and seeded.\
-Then to run the server, *rails s*.
+To reset the database, run *rails db:drop* then *rails db:create*.\
+Then migrate the necessary files by running *rails db:migrate*.\
+Lastly, to add all the data to our database, run *rails db:seed*.
+
+You're ready to run the server! Run *rails s*.
 
 For the **frontend**:\
 First run *npm install --prefix client* to install all the frontend dependencies (--prefix client because the frontend files are in the client folder).\
